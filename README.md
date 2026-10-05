@@ -51,9 +51,9 @@ All are read at build time. Set `SITE_ALLOW_INDEXING=true` **only** for the prod
 
 ### Preview deployment (GitHub Pages)
 
-Every push to `main` runs `.github/workflows/pages.yml`: lint, typecheck and tests, then a static
-export published to https://geogreymbugua.github.io/kingori/. It is a preview: indexing stays off,
-so robots.txt and page metadata keep search engines out while placeholder content remains.
+`npm run deploy:pages` builds a static export and publishes it to the `gh-pages` branch, served at
+https://geogreymbugua.github.io/kingori/. It is a preview: indexing stays off, so robots.txt and
+page metadata keep search engines out while placeholder content remains.
 
 ## Commands
 
