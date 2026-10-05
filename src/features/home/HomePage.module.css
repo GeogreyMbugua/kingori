@@ -1,0 +1,200 @@
+/* ─── Opening ─── */
+
+.opening {
+  padding-block-start: var(--space-6);
+}
+
+/*
+ * Mobile: name, then the portrait full-bleed, then the intro.
+ * Tablet: portrait sits right, the intro tucks into the empty columns beside it.
+ * Desktop: name across eight columns, portrait rises the full height on the right,
+ * intro anchors bottom-left so the eye travels name → portrait → words.
+ */
+.portrait {
+  margin-inline: calc(var(--gutter) * -1);
+}
+
+.intro {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-5);
+}
+
+/* tablet */
+@media (min-width: 48em) {
+  .portrait {
+    margin-inline: 0;
+    grid-row: 2;
+  }
+
+  .intro {
+    grid-row: 2;
+    grid-column: 1 / span 3;
+    align-self: end;
+  }
+}
+
+/* desktop */
+@media (min-width: 64em) {
+  .wordmark {
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .portrait {
+    grid-row: 1 / span 2;
+  }
+
+  .intro {
+    grid-row: 2;
+    grid-column: 1 / span 5;
+  }
+}
+
+/* ─── Statement ─── */
+
+.statement {
+  color: var(--color-text);
+}
+
+/* ─── Selected work ─── */
+
+.label {
+  margin-block-end: var(--space-6);
+}
+
+.feature {
+  margin-block-end: var(--space-8);
+  row-gap: var(--space-5);
+}
+
+.featureImage {
+  margin-inline: calc(var(--gutter) * -1);
+}
+
+.featureText {
+  display: grid;
+  align-content: end;
+  gap: var(--space-4);
+}
+
+.kicker {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.kind {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+.titleLink {
+  text-decoration-color: transparent;
+  text-decoration-thickness: var(--border-width-thick);
+  text-underline-offset: 0.12em;
+}
+
+@media (hover: hover) {
+  .titleLink:hover {
+    text-decoration-color: var(--color-accent);
+  }
+}
+
+.more {
+  margin-block-start: var(--space-6);
+}
+
+/* tablet */
+@media (min-width: 48em) {
+  .featureImage {
+    margin-inline: 0;
+  }
+}
+
+/* desktop: image bleeds off the left edge; text stands in the remaining columns. */
+@media (min-width: 64em) {
+  .featureImage {
+    margin-inline-start: calc(var(--gutter) * -1);
+  }
+
+  .featureText {
+    padding-block-end: var(--space-4);
+  }
+}
+
+/* ─── Media ─── */
+
+.mediaFeature {
+  display: grid;
+  gap: var(--space-4);
+  margin-inline: calc(var(--gutter) * -1);
+}
+
+.mediaCaption {
+  display: grid;
+  gap: var(--space-1);
+  padding-inline: var(--gutter);
+  font-style: normal;
+}
+
+.mediaTitle {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-h2);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+  color: var(--color-text);
+  text-decoration-color: transparent;
+  text-decoration-thickness: var(--border-width-thick);
+  text-underline-offset: 0.12em;
+}
+
+@media (hover: hover) {
+  .mediaTitle:hover {
+    text-decoration-color: var(--color-accent);
+  }
+}
+
+.mediaMore {
+  display: grid;
+  align-content: end;
+  justify-items: start;
+  gap: var(--space-6);
+}
+
+.mediaList {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.mediaList li {
+  display: grid;
+  gap: var(--space-1);
+  padding-block-start: var(--space-4);
+  border-block-start: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+/* tablet */
+@media (min-width: 48em) {
+  .mediaFeature {
+    margin-inline: 0;
+  }
+
+  .mediaCaption {
+    padding-inline: 0;
+  }
+
+  .mediaList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+  }
+}
+
+/* desktop: secondary items stack in the narrow column beside the feature. */
+@media (min-width: 64em) {
+  .mediaList {
+    grid-template-columns: none;
+  }
+}

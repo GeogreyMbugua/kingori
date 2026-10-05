@@ -1,0 +1,99 @@
+/* ─── Opening ─── */
+
+/*
+ * Mobile: title, then the portrait edge to edge, then the statement.
+ * Tablet/desktop: the portrait bleeds off the left edge from the top of the
+ * page; the title stands at the top of the right-hand columns and the
+ * statement settles towards the portrait's foot.
+ */
+.openingGrid {
+  row-gap: var(--space-6);
+}
+
+.title {
+  padding-block-start: var(--space-section-sm);
+}
+
+.portrait {
+  margin-inline: calc(var(--gutter) * -1);
+}
+
+.statementItem {
+  padding-block-end: var(--space-section-sm);
+}
+
+.statement {
+  font-size: var(--font-size-h2);
+  line-height: var(--leading-snug);
+}
+
+/* tablet */
+@media (min-width: 48em) {
+  .title {
+    grid-row: 1;
+  }
+
+  .portrait {
+    grid-row: 1 / span 2;
+    margin-inline-end: 0;
+  }
+
+  .statementItem {
+    grid-row: 2;
+    align-self: end;
+    padding-block-end: var(--space-4);
+  }
+}
+
+/* desktop */
+@media (min-width: 64em) {
+  .statement {
+    font-size: var(--font-size-quote);
+  }
+}
+
+/* ─── Chapters ─── */
+
+.chapters {
+  row-gap: var(--space-8);
+}
+
+.chapter {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* The detail image is a pause beside the second chapter, not an illustration of it. */
+.detail {
+  grid-row: 2;
+  align-self: start;
+}
+
+/* tablet: later chapters step in from the first (GridItem starts), so the column reads as written, not stacked */
+@media (min-width: 48em) {
+  .detail {
+    grid-row: 2 / span 2;
+  }
+}
+
+/* ─── Capabilities ─── */
+
+.capabilities {
+  display: grid;
+  gap: var(--space-2) var(--grid-gap);
+  margin-block-start: var(--space-5);
+}
+
+/* tablet: the list moves beside its label */
+@media (min-width: 48em) {
+  .capabilities {
+    margin-block-start: 0;
+  }
+}
+
+/* desktop: two columns once each capability fits on one line */
+@media (min-width: 64em) {
+  .capabilities {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

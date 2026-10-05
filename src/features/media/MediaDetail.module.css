@@ -1,0 +1,47 @@
+.opening {
+  row-gap: var(--space-5);
+}
+
+.kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--space-4);
+}
+
+.context {
+  display: grid;
+  align-content: end;
+  gap: var(--space-4);
+}
+
+.credits {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.credits dd {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text);
+}
+
+.work {
+  display: grid;
+  gap: var(--space-7);
+  padding-block-end: var(--space-section);
+}
+
+/* Long-form: the reading size steps up one tier for sustained reading. */
+.essay {
+  font-size: var(--font-size-body-lg);
+}
+
+.essay > :first-child {
+  color: var(--color-text);
+}
+
+.relatedLabel {
+  margin-block-end: var(--space-5);
+}

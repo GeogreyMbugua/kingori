@@ -1,0 +1,39 @@
+.figure {
+  display: grid;
+  gap: var(--space-5);
+  max-inline-size: 28ch;
+  font-size: var(--font-size-quote);
+}
+
+.quote {
+  margin: 0;
+}
+
+/* Typographic quotes, hung into the margin so the text block stays aligned. */
+.text {
+  quotes: "“" "”";
+  text-indent: -0.42em;
+}
+
+.text::before {
+  content: open-quote;
+  color: var(--color-accent);
+}
+
+.text::after {
+  content: close-quote;
+  color: var(--color-accent);
+}
+
+.caption {
+  font-size: var(--font-size-meta);
+}
+
+.caption::before {
+  content: "— ";
+}
+
+.caption cite {
+  font-style: normal;
+  color: var(--color-text-secondary);
+}

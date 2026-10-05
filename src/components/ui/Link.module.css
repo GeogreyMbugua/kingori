@@ -1,0 +1,64 @@
+/* inline: inherits the global editorial anchor treatment (globals.css). */
+.inline {
+  overflow-wrap: anywhere;
+}
+
+.cta,
+.nav {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--size-touch-target);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-ui);
+  line-height: var(--leading-ui);
+  letter-spacing: var(--tracking-ui);
+  color: var(--color-text);
+  text-decoration-color: transparent;
+  text-decoration-thickness: var(--border-width-thick);
+}
+
+.cta {
+  gap: var(--space-2);
+  font-weight: var(--weight-semibold);
+  text-underline-offset: 0.35em;
+}
+
+.arrow {
+  color: var(--color-accent-text);
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+.cta:focus-visible .arrow {
+  transform: translateX(0.25em);
+}
+
+/* Short labels ("Work") still get a full 44px target in both axes. */
+.nav {
+  justify-content: center;
+  min-inline-size: var(--size-touch-target);
+  font-weight: var(--weight-medium);
+  text-underline-offset: 0.45em;
+}
+
+/* Current location: accent underline plus heavier weight, not colour alone. */
+.nav[aria-current] {
+  text-decoration-color: var(--color-accent);
+}
+
+.nav[aria-current="page"] {
+  font-weight: var(--weight-semibold);
+}
+
+@media (hover: hover) {
+  .cta:hover {
+    text-decoration-color: var(--color-accent);
+  }
+
+  .cta:hover .arrow {
+    transform: translateX(0.25em);
+  }
+
+  .nav:hover:not([aria-current]) {
+    text-decoration-color: var(--color-border-strong);
+  }
+}

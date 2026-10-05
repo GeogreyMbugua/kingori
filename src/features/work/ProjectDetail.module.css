@@ -1,0 +1,77 @@
+.opening {
+  row-gap: var(--space-5);
+}
+
+.kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--space-4);
+}
+
+.kind {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+/* Facts read as a quiet column, label above value. */
+.facts {
+  display: grid;
+  gap: var(--space-4);
+  padding-block-start: var(--space-4);
+  border-block-start: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.facts dd {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text);
+}
+
+/* desktop: facts align to the foot of the summary */
+@media (min-width: 64em) {
+  .facts {
+    align-self: end;
+  }
+}
+
+.statement {
+  margin: 0;
+}
+
+/* Words from the work are always set in the reading face's italic. */
+.statement p {
+  font-size: var(--font-size-display);
+  line-height: var(--leading-heading);
+  color: var(--color-text);
+}
+
+.chapter {
+  row-gap: var(--space-3);
+}
+
+.chapters > * > * + * {
+  margin-block-start: var(--space-8);
+}
+
+/* Chapter labels hold their place while the reader moves through the text. */
+@media (min-width: 48em) {
+  .chapterLabel {
+    position: sticky;
+    inset-block-start: var(--space-6);
+  }
+}
+
+.aside {
+  align-self: start;
+}
+
+.figures {
+  padding-block-end: var(--space-section);
+}
+
+.relatedLabel {
+  margin-block-end: var(--space-5);
+}

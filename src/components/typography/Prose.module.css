@@ -1,0 +1,28 @@
+.prose {
+  max-inline-size: var(--measure);
+}
+
+.prose > * + * {
+  margin-block-start: var(--space-flow);
+}
+
+/* Headings group with the text that follows, not the text before. */
+.prose > * + :is(h2, h3, h4) {
+  margin-block-start: calc(var(--space-flow) * 2);
+}
+
+.prose > :is(h2, h3, h4) + * {
+  margin-block-start: var(--space-3);
+}
+
+.prose :is(ul, ol) {
+  padding-inline-start: 1.25em;
+}
+
+.prose li + li {
+  margin-block-start: var(--space-2);
+}
+
+.prose li::marker {
+  color: var(--color-accent-text);
+}

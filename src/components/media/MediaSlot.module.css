@@ -1,0 +1,5 @@
+/* Matches ImageFrame's caption so pending and real slots share one rhythm. */
+.caption {
+  margin-block-start: var(--space-3);
+  max-inline-size: var(--measure);
+}

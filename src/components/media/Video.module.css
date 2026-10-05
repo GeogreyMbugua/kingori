@@ -1,0 +1,17 @@
+.video {
+  inline-size: 100%;
+  block-size: auto;
+  background-color: var(--color-surface);
+}
+
+.ambient {
+  position: relative;
+}
+
+.control {
+  position: absolute;
+  inset-block-end: var(--space-4);
+  inset-inline-end: var(--space-4);
+  z-index: var(--z-raised);
+  background-color: var(--color-background);
+}

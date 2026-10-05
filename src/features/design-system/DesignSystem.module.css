@@ -1,0 +1,104 @@
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: var(--space-4);
+  margin-block: var(--space-5) var(--space-7);
+}
+
+.swatch {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.chip {
+  display: block;
+  block-size: var(--space-9);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.contrastSample {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.contrastText {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-h2);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-heading);
+}
+
+/* Meta inherits the sample's colour so the measured pair is what you read. */
+.contrastMeta {
+  color: inherit;
+}
+
+.specimen {
+  display: grid;
+  gap: var(--space-2);
+  padding-block: var(--space-6);
+  border-block-start: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.roleName {
+  color: var(--color-text-muted);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-block: var(--space-5);
+}
+
+.gridDemo {
+  margin-block: var(--space-5) var(--space-7);
+  row-gap: var(--space-3);
+}
+
+.cell {
+  padding: var(--space-3);
+  background-color: var(--color-surface);
+  border: var(--border-width-thin) solid var(--color-border);
+}
+
+.scale {
+  display: grid;
+  gap: var(--space-2);
+  margin-block-start: var(--space-5);
+}
+
+.scaleRow {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.bar {
+  display: block;
+  block-size: var(--space-3);
+  background-color: var(--color-accent);
+}
+
+.containerDemo {
+  margin-block-start: var(--space-3);
+  background-color: var(--color-surface);
+  background-clip: content-box;
+}
+
+.statusList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin-block-start: var(--space-5);
+}
+
+.revealStack {
+  display: grid;
+  gap: var(--space-6);
+  margin-block-start: var(--space-6);
+}

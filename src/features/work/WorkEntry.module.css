@@ -1,0 +1,105 @@
+.entry {
+  padding-block: var(--space-8);
+  border-block-start: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.kind {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+.titleLink {
+  text-decoration-color: transparent;
+  text-decoration-thickness: var(--border-width-thick);
+  text-underline-offset: 0.12em;
+}
+
+@media (hover: hover) {
+  .titleLink:hover {
+    text-decoration-color: var(--color-accent);
+  }
+}
+
+.text,
+.textStart,
+.textEnd {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+}
+
+/* ─── Image-led ─── */
+
+.imageLed {
+  row-gap: var(--space-6);
+}
+
+/* Mobile: image runs edge to edge, text follows. */
+.bleedStart,
+.bleedEnd {
+  margin-inline: calc(var(--gutter) * -1);
+}
+
+/* tablet */
+@media (min-width: 48em) {
+  .bleedStart,
+  .bleedEnd {
+    margin-inline: 0;
+  }
+}
+
+/*
+ * Desktop: image and text swap sides entry by entry; the image bleeds off its
+ * own edge and both share a row, the text anchored to the image's foot or head.
+ */
+@media (min-width: 64em) {
+  .bleedStart,
+  .bleedEnd,
+  .textStart,
+  .textEnd {
+    grid-row: 1;
+  }
+
+  .bleedStart {
+    margin-inline-start: calc(var(--gutter) * -1);
+  }
+
+  .bleedEnd {
+    margin-inline-end: calc(var(--gutter) * -1);
+  }
+
+  .textEnd {
+    align-content: end;
+  }
+}
+
+/* ─── Statement-led ─── */
+
+.statement {
+  margin-block-end: var(--space-6);
+}
+
+.statement [data-type="quote"] {
+  font-size: var(--font-size-heading-xl);
+  color: var(--color-text);
+}
+
+/* The image becomes a small counterpoint beside the words. */
+.smallImage {
+  align-self: end;
+}
+
+@media (min-width: 64em) {
+  .text,
+  .smallImage {
+    grid-row: 2;
+  }
+}

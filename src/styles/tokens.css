@@ -1,0 +1,257 @@
+/*
+ * Design tokens — the single source of design values.
+ *
+ * Tiers:
+ *   --brand-*   raw palette. Only this file references them.
+ *   --color-*   semantic colour, remapped per surface (default dark / inverse light).
+ *   everything else: type, space, layout, borders, focus, motion.
+ *
+ * Components use semantic tokens only. Colour contracts are verified by
+ * tests/unit/styles/contrast.test.ts. Rationale: docs/adr/0006–0008.
+ */
+@layer tokens {
+  :root {
+    /* ─── Brand core palette ─── */
+    --brand-deep-navy: #000030;
+    --brand-midnight-navy: #101040;
+    --brand-muted-purple: #302050;
+    --brand-blue: #003090;
+    --brand-hot-pink: #c03070;
+    --brand-coral-red: #e05050;
+    --brand-orange: #f07040;
+    --brand-soft-white: #f0f0f0;
+    --brand-lavender-white: #e8e8f0;
+
+    /* ─── Derived tones: mixes of core colours that unlock accessible uses ─── */
+    --brand-hot-pink-light: #d37da3; /* pink + 40% soft white: pink text on dark */
+    --brand-hot-pink-deep: #a32966; /* pink + 15% navy: hover; pink text on light */
+    --brand-hot-pink-darker: #86225d; /* pink + 30% navy: pressed */
+    --brand-hot-pink-wash-dark: #23093c; /* navy + 18% pink: subtle accent surface */
+    --brand-hot-pink-wash-light: #ead9e1; /* soft white + 12% pink */
+    --brand-blue-light: #4667ad; /* blue + 30% lavender: 3:1 control borders */
+    --brand-blue-pale: #8095c5; /* blue + 55% lavender: info text on dark */
+    --brand-lavender-muted: #9797ad; /* lavender + 35% navy: muted text on dark */
+    --brand-lavender-mist: #d1d1d9; /* soft white + 35% lavender-muted: hairline on light */
+    --brand-navy-muted: #545473; /* navy + 35% soft white: muted text on light */
+    --brand-orange-deep: #843e39; /* orange + 45% navy: warning on light */
+    --brand-coral-deep: #9d3846; /* coral + 30% navy: error on light */
+
+    /* Functional green: the one non-brand hue, reserved for success states. */
+    --brand-green: #4cc38a;
+    --brand-green-deep: #225859; /* green + 55% navy: success on light */
+  }
+
+  /*
+   * Semantic colour — default (dark) surface. data-surface="default" restores
+   * these inside an inverse section.
+   *
+   * Contracts (test-enforced):
+   *   ≥ 7:1    text, text-secondary
+   *   ≥ 4.5:1  text-muted, accent-text, accent-contrast, emphasis,
+   *            success, warning, error, info, inverse-text
+   *   ≥ 3:1    accent, warm, border-strong, focus-ring
+   */
+  :root,
+  [data-surface="default"] {
+    color-scheme: dark;
+
+    /* Base */
+    --color-background: var(--brand-deep-navy);
+    --color-surface: var(--brand-midnight-navy);
+    --color-surface-raised: var(--brand-muted-purple);
+    --color-surface-structural: var(--brand-blue);
+
+    --color-text: var(--brand-soft-white);
+    --color-text-secondary: var(--brand-lavender-white);
+    --color-text-muted: var(--brand-lavender-muted);
+
+    --color-border-subtle: var(--brand-muted-purple);
+    --color-border: var(--brand-blue);
+    --color-border-strong: var(--brand-blue-light);
+
+    --color-inverse-background: var(--brand-soft-white);
+    --color-inverse-text: var(--brand-deep-navy);
+
+    /*
+     * Accent. Hot pink is 3.7:1 on navy: fills, display type and indicators.
+     * Small pink text uses --color-accent-text.
+     */
+    --color-accent: var(--brand-hot-pink);
+    --color-accent-hover: var(--brand-hot-pink-deep);
+    --color-accent-active: var(--brand-hot-pink-darker);
+    --color-accent-subtle: var(--brand-hot-pink-wash-dark);
+    --color-accent-contrast: var(--brand-soft-white);
+    --color-accent-text: var(--brand-hot-pink-light);
+
+    /* Editorial secondary accents — use sparingly. */
+    --color-emphasis: var(--brand-coral-red);
+    --color-warm: var(--brand-orange);
+
+    /* Status. Always paired with text or an icon, never colour alone. */
+    --color-success: var(--brand-green);
+    --color-warning: var(--brand-orange);
+    --color-error: var(--brand-coral-red);
+    --color-info: var(--brand-blue-pale);
+
+    --color-focus-ring: var(--brand-orange);
+    --color-selection-background: var(--brand-hot-pink);
+    --color-selection-text: var(--brand-soft-white);
+  }
+
+  /*
+   * Inverse (light) surface for editorial contrast sections. Same contracts.
+   * --color-surface-structural (blue) stays dark: an element using it inside
+   * an inverse section must also set data-surface="default".
+   */
+  [data-surface="inverse"] {
+    color-scheme: light;
+
+    --color-background: var(--brand-soft-white);
+    --color-surface: var(--brand-lavender-white);
+    --color-surface-raised: var(--brand-lavender-white);
+
+    --color-text: var(--brand-deep-navy);
+    --color-text-secondary: var(--brand-midnight-navy);
+    --color-text-muted: var(--brand-navy-muted);
+
+    --color-border-subtle: var(--brand-lavender-mist);
+    --color-border: var(--brand-lavender-muted);
+    --color-border-strong: var(--brand-navy-muted);
+
+    --color-inverse-background: var(--brand-deep-navy);
+    --color-inverse-text: var(--brand-soft-white);
+
+    --color-accent-subtle: var(--brand-hot-pink-wash-light);
+    --color-accent-text: var(--brand-hot-pink-deep);
+
+    --color-emphasis: var(--brand-blue);
+    /* Orange is 2.6:1 on soft white; coral is the warm accent on light. */
+    --color-warm: var(--brand-coral-red);
+
+    --color-success: var(--brand-green-deep);
+    --color-warning: var(--brand-orange-deep);
+    --color-error: var(--brand-coral-deep);
+    --color-info: var(--brand-blue);
+
+    --color-focus-ring: var(--brand-blue);
+  }
+
+  :root {
+    /* ─── Font families (variables injected by src/styles/fonts.ts) ─── */
+    --font-sans: var(--font-bricolage), system-ui, sans-serif;
+    --font-serif: var(--font-newsreader), Georgia, serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    /* ─── Font weights (only those the type roles use) ─── */
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+    --weight-heavy: 800;
+
+    /* Bricolage width axis via font-stretch: condensed display, normal text. */
+    --stretch-condensed: 78%;
+    --stretch-semi-condensed: 88%;
+
+    /*
+     * ─── Font sizes: one per typographic role ───
+     * Fluid between 20rem and 90rem viewports. Reading sizes grow ≤ 1.75×
+     * (WCAG 1.4.4-safe). Display tiers grow more by design; see ADR 0007.
+     */
+    --font-size-giant: clamp(4rem, 1.4286rem + 12.8571vw, 13rem); /* 64 → 208px */
+    --font-size-display: clamp(2.75rem, 1.25rem + 7.5vw, 8rem); /* 44 → 128px */
+    --font-size-heading-xl: clamp(2.25rem, 1.4643rem + 3.9286vw, 5rem); /* 36 → 80px */
+    --font-size-h1: clamp(2rem, 1.5714rem + 2.1429vw, 3.5rem); /* 32 → 56px */
+    --font-size-h2: clamp(1.625rem, 1.375rem + 1.25vw, 2.5rem); /* 26 → 40px */
+    --font-size-h3: clamp(1.3125rem, 1.2232rem + 0.4464vw, 1.625rem); /* 21 → 26px */
+    --font-size-quote: clamp(1.625rem, 1.2321rem + 1.9643vw, 3rem); /* 26 → 48px */
+    --font-size-body-lg: clamp(1.1875rem, 1.1161rem + 0.3571vw, 1.4375rem); /* 19 → 23px */
+    --font-size-body: clamp(1.0625rem, 1.0268rem + 0.1786vw, 1.1875rem); /* 17 → 19px */
+    --font-size-body-sm: clamp(0.9375rem, 0.9196rem + 0.0893vw, 1rem); /* 15 → 16px */
+    --font-size-ui: 1rem; /* navigation, buttons */
+    --font-size-caption: 0.9375rem; /* 15px, serif italic */
+    --font-size-meta: 0.875rem; /* 14px floor for any text */
+
+    /* ─── Line heights ─── */
+    --leading-display: 0.88;
+    --leading-heading: 1.08;
+    --leading-snug: 1.25;
+    --leading-ui: 1.4;
+    --leading-body: 1.6;
+
+    /* ─── Letter spacing ─── */
+    --tracking-display: -0.035em;
+    --tracking-heading: -0.015em;
+    --tracking-normal: 0;
+    --tracking-ui: 0.01em;
+    --tracking-caps: 0.14em;
+
+    /* ─── Spacing: 4px base, rhythm doubles from 16px ─── */
+    --space-1: 0.25rem; /* 4  micro: icon gaps, underline offsets */
+    --space-2: 0.5rem; /* 8  inline */
+    --space-3: 0.75rem; /* 12 */
+    --space-4: 1rem; /* 16 component */
+    --space-5: 1.5rem; /* 24 */
+    --space-6: 2rem; /* 32 */
+    --space-7: 3rem; /* 48 block */
+    --space-8: 4rem; /* 64 */
+    --space-9: 6rem; /* 96 */
+
+    --space-flow: 1em; /* paragraph spacing, relative to the text itself */
+    --space-section-sm: clamp(2rem, 1.4286rem + 2.8571vw, 4rem); /* 32 → 64px */
+    --space-section: clamp(3rem, 1.8571rem + 5.7143vw, 7rem); /* 48 → 112px */
+    --space-section-lg: clamp(4rem, 1.7143rem + 11.4286vw, 12rem); /* 64 → 192px */
+
+    /* ─── Layout ─── */
+    --width-reading: 42rem; /* ≈ 66ch of body serif */
+    --width-content: 80rem;
+    --width-wide: 104rem;
+    --measure: 66ch;
+    --gutter: clamp(1rem, 0.4286rem + 2.8571vw, 3rem); /* 16 → 48px */
+    --grid-columns: 4;
+    --grid-gap: var(--space-4);
+    --size-touch-target: 2.75rem; /* 44px, WCAG 2.5.5 */
+
+    /* ─── Borders & radii: square corners are part of the identity ─── */
+    --border-width-thin: 1px;
+    --border-width-thick: 2px;
+    --radius-none: 0;
+    --radius-sm: 0.125rem;
+
+    /* ─── Focus ─── */
+    --focus-ring-width: 3px;
+    --focus-ring-offset: 3px;
+
+    /* ─── Stacking ─── */
+    --z-raised: 10;
+    --z-skip-link: 1100;
+
+    /*
+     * ─── Motion ─── zeroed under prefers-reduced-motion (animations.css)
+     *   fast: hover/focus colour, underline   base: arrows, small shifts
+     *   slow: image and reveal transitions
+     */
+    --duration-fast: 150ms;
+    --duration-base: 250ms;
+    --duration-slow: 600ms;
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    --ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
+    --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  }
+
+  /* tablet (see src/lib/breakpoints.ts) */
+  @media (min-width: 48em) {
+    :root {
+      --grid-columns: 8;
+      --grid-gap: var(--space-5);
+    }
+  }
+
+  /* desktop */
+  @media (min-width: 64em) {
+    :root {
+      --grid-columns: 12;
+      --grid-gap: var(--space-6);
+    }
+  }
+}

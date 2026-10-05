@@ -1,0 +1,97 @@
+/*
+ * Global stylesheet entry point, imported once by the root layout.
+ *
+ * Global rules live in cascade layers; component CSS Modules are unlayered
+ * and therefore always take precedence over these defaults without
+ * specificity battles.
+ */
+@layer reset, tokens, base, typography, motion;
+
+@import "../styles/tokens.css";
+@import "../styles/typography.css";
+@import "../styles/animations.css";
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  ul[role="list"],
+  ol[role="list"] {
+    list-style: none;
+    padding: 0;
+  }
+}
+
+@layer base {
+  html {
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+
+  body {
+    min-block-size: 100dvh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  [data-surface] {
+    background-color: var(--color-background);
+    color: var(--color-text-secondary);
+  }
+
+  /* Inline editorial link. Variants (nav, CTA) override in their CSS Modules. */
+  a {
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: var(--border-width-thin);
+    text-underline-offset: 0.2em;
+    transition:
+      text-decoration-color var(--duration-fast) var(--ease-standard),
+      text-decoration-thickness var(--duration-fast) var(--ease-standard);
+  }
+
+  @media (hover: hover) {
+    a:hover {
+      text-decoration-color: currentColor;
+      text-decoration-thickness: var(--border-width-thick);
+    }
+  }
+
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  ::selection {
+    background-color: var(--color-selection-background);
+    color: var(--color-selection-text);
+  }
+}

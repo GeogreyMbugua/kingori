@@ -1,0 +1,35 @@
+.section {
+  position: relative;
+}
+
+.spacing-none {
+  padding-block: 0;
+}
+
+.spacing-sm {
+  padding-block: var(--space-section-sm);
+}
+
+.spacing-md {
+  padding-block: var(--space-section);
+}
+
+.spacing-lg {
+  padding-block: var(--space-section-lg);
+}
+
+.raised {
+  background-color: var(--color-surface);
+}
+
+.center {
+  text-align: center;
+}
+
+.center :is(p, h1, h2, h3, figure) {
+  margin-inline: auto;
+}
+
+.label {
+  margin-block-end: var(--space-5);
+}

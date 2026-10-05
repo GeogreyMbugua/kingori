@@ -1,0 +1,43 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+
+/*
+ * Each tier falls back to the tier below, then to full width. Spans larger
+ * than a tier's column count are prevented by GridItem's types.
+ */
+.item {
+  --_span: var(--span-base, var(--grid-columns));
+  --_start: var(--start-base, auto);
+
+  grid-column: var(--_start) / span var(--_span);
+}
+
+/* tablet */
+@media (min-width: 48em) {
+  .item {
+    --_span: var(--span-tablet, var(--span-base, var(--grid-columns)));
+    --_start: var(--start-tablet, auto);
+  }
+}
+
+/* desktop */
+@media (min-width: 64em) {
+  .item {
+    --_span: var(--span-desktop, var(--span-tablet, var(--span-base, var(--grid-columns))));
+    --_start: var(--start-desktop, auto);
+  }
+}
+
+/* wide */
+@media (min-width: 90em) {
+  .item {
+    --_span: var(
+      --span-wide,
+      var(--span-desktop, var(--span-tablet, var(--span-base, var(--grid-columns))))
+    );
+    --_start: var(--start-wide, var(--start-desktop, auto));
+  }
+}

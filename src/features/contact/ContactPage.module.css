@@ -1,0 +1,48 @@
+.grid {
+  row-gap: var(--space-7);
+}
+
+.invitation {
+  color: var(--color-text-secondary);
+}
+
+.action {
+  display: grid;
+  align-content: end;
+  justify-items: start;
+  gap: var(--space-3);
+}
+
+/*
+ * The address is the page's action. h2 scale keeps a typical address on one
+ * line in five desktop columns and on a 320px screen; anywhere-wrapping is
+ * only a last resort for unusually long addresses.
+ */
+.primary {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-h2);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: var(--border-width-thick);
+  text-underline-offset: 0.15em;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .primary:hover {
+    color: var(--color-accent-text);
+    text-decoration-color: currentColor;
+  }
+}
+
+.secondary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin-block-start: var(--space-4);
+}

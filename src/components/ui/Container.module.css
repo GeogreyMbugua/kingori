@@ -1,0 +1,18 @@
+/* Gutters sit outside the width token, so the content column is exactly that width. */
+.container {
+  inline-size: 100%;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.reading {
+  max-inline-size: calc(var(--width-reading) + 2 * var(--gutter));
+}
+
+.content {
+  max-inline-size: calc(var(--width-content) + 2 * var(--gutter));
+}
+
+.wide {
+  max-inline-size: calc(var(--width-wide) + 2 * var(--gutter));
+}

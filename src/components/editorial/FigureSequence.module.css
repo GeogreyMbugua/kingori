@@ -1,0 +1,10 @@
+.sequence {
+  row-gap: var(--space-7);
+}
+
+/* tablet */
+@media (min-width: 48em) {
+  .dropped {
+    margin-block-start: var(--space-9);
+  }
+}

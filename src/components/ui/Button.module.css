@@ -1,0 +1,89 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-block-size: var(--size-touch-target);
+  min-inline-size: var(--size-touch-target);
+  padding: var(--space-3) var(--space-5);
+  border: var(--border-width-thick) solid transparent;
+  border-radius: var(--radius-none);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-ui);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-ui);
+  letter-spacing: var(--tracking-ui);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+}
+
+/* Primary: solid accent fill. */
+.primary {
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+.primary:active:not(:disabled) {
+  background-color: var(--color-accent-active);
+}
+
+.primary:disabled {
+  background-color: var(--color-surface-raised);
+  color: var(--color-text-muted);
+}
+
+/* Secondary: outline in the text colour (≥ 7:1 boundary). */
+.secondary {
+  background-color: transparent;
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+.secondary:active:not(:disabled) {
+  background-color: var(--color-surface);
+}
+
+.secondary:disabled {
+  border-color: var(--color-border);
+  border-style: dashed;
+  color: var(--color-text-muted);
+}
+
+/* Quiet: text-only, underlined so it still reads as interactive. */
+.quiet {
+  padding-inline: var(--space-2);
+  background-color: transparent;
+  color: var(--color-text);
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: var(--border-width-thin);
+  text-underline-offset: 0.3em;
+}
+
+.quiet:disabled {
+  color: var(--color-text-muted);
+  text-decoration-color: var(--color-border);
+}
+
+@media (hover: hover) {
+  .primary:hover:not(:disabled) {
+    background-color: var(--color-accent-hover);
+  }
+
+  .secondary:hover:not(:disabled) {
+    background-color: var(--color-accent-subtle);
+    border-color: var(--color-accent);
+  }
+
+  .quiet:hover:not(:disabled) {
+    text-decoration-thickness: var(--border-width-thick);
+  }
+}

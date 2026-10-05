@@ -1,0 +1,36 @@
+.frame {
+  margin: 0;
+}
+
+.crop {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-surface);
+}
+
+.cutout {
+  background-color: transparent;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.intrinsic {
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-4);
+  margin-block-start: var(--space-3);
+  max-inline-size: var(--measure);
+}
+
+.credit {
+  font-style: normal;
+}

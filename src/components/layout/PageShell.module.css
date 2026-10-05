@@ -1,0 +1,14 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100dvh;
+}
+
+/* Vertical rhythm comes from Section spacing, not from main. */
+.main {
+  flex: 1;
+}
+
+.main:focus {
+  outline: none;
+}

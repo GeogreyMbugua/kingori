@@ -1,0 +1,87 @@
+.opening {
+  row-gap: var(--space-5);
+}
+
+.intro {
+  align-self: end;
+}
+
+.titleLink {
+  text-decoration-color: transparent;
+  text-decoration-thickness: var(--border-width-thick);
+  text-underline-offset: 0.12em;
+}
+
+@media (hover: hover) {
+  .titleLink:hover {
+    text-decoration-color: var(--color-accent);
+  }
+}
+
+/* ─── Feature ─── */
+
+.feature {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.featureImage {
+  margin-inline: calc(var(--gutter) * -1);
+}
+
+.featureText {
+  row-gap: var(--space-4);
+}
+
+.featureText > :first-child {
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (min-width: 64em) {
+  .featureImage {
+    margin-inline: 0;
+  }
+}
+
+/* ─── The rest ─── */
+
+.rest {
+  row-gap: var(--space-8);
+}
+
+.visual,
+.textual {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+}
+
+.visual > :first-child {
+  margin-block-end: var(--space-2);
+  margin-inline: calc(var(--gutter) * -1);
+}
+
+/* Text-only entries open with a rule, like a column in print. */
+.textual {
+  padding-block-start: var(--space-4);
+  border-block-start: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.standfirst {
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+@media (min-width: 48em) {
+  .visual > :first-child {
+    margin-inline: 0;
+  }
+}
+
+/* desktop: text-only entries sit beside the visual ones, anchored to their foot */
+@media (min-width: 64em) {
+  .textual {
+    align-self: end;
+  }
+}

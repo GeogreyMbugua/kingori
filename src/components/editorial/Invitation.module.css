@@ -1,0 +1,17 @@
+.invitation {
+  max-inline-size: 14ch;
+}
+
+.link {
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: var(--border-width-thick);
+  text-underline-offset: 0.1em;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .link:hover {
+    color: var(--color-accent-text);
+    text-decoration-color: currentColor;
+  }
+}

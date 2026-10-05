@@ -1,0 +1,34 @@
+/*
+ * Motion foundation. Principle: motion clarifies interaction or reinforces
+ * editorial composition; it never competes with content.
+ *
+ *   Hover / focus      colour, underline       --duration-fast, --ease-standard
+ *   Directional cues   CTA arrow nudge          --duration-base, --ease-standard
+ *   Images, reveals    opacity + short rise     --duration-slow, --ease-emphasized
+ *   Page transitions   none (see ADR 0009)
+ *
+ * Only opacity and transform animate. Component keyframes live in their CSS
+ * Module (e.g. components/motion/Reveal.module.css).
+ *
+ * Reduced motion is enforced globally. This layer is declared last, and
+ * !important declarations in earlier-declared layers beat unlayered ones, so
+ * these overrides also win against component CSS Modules.
+ */
+@layer motion {
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --duration-fast: 0ms;
+      --duration-base: 0ms;
+      --duration-slow: 0ms;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

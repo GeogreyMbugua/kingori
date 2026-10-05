@@ -1,0 +1,4 @@
+/* Heavy condensed capitals carry visible side-bearing; pull back to the column edge. */
+.giant {
+  margin-inline-start: -0.04em;
+}

@@ -1,0 +1,15 @@
+/* Mobile: items spread across the full width, one tap from anywhere. */
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: var(--space-4);
+}
+
+/* tablet */
+@media (min-width: 48em) {
+  .list {
+    justify-content: flex-end;
+    column-gap: var(--space-6);
+  }
+}

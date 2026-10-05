@@ -1,0 +1,8 @@
+.placeholder {
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  background-color: var(--color-surface);
+  border: var(--border-width-thin) dashed var(--color-border-strong);
+  text-align: center;
+}

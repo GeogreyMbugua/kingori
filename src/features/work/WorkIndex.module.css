@@ -1,0 +1,13 @@
+.opening {
+  row-gap: var(--space-5);
+}
+
+.intro {
+  display: grid;
+  gap: var(--space-4);
+  align-content: end;
+}
+
+.entries {
+  padding-block-end: var(--space-section);
+}
