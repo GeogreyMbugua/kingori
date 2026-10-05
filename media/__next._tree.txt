@@ -1,0 +1,4 @@
+:HL["/kingori/_next/static/chunks/09iwklp5tqxib.css","style"]
+:HL["/kingori/_next/static/chunks/1qu7isl4xd598.css","style"]
+:HL["/kingori/_next/static/media/BricolageGrotesque_Variable-s.p.3_higuhqizmuq.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":4192,"slots":{"children":{"name":"media","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"WR7cN8o4GIj_Jvgn1r_kI"}
