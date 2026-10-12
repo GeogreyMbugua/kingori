@@ -4,11 +4,12 @@ import styles from "./PrimaryNav.module.css";
 
 interface PrimaryNavProps {
   readonly items: readonly NavigationItem[];
+  readonly className?: string;
 }
 
-export function PrimaryNav({ items }: PrimaryNavProps) {
+export function PrimaryNav({ items, className }: PrimaryNavProps) {
   return (
-    <nav aria-label="Primary">
+    <nav aria-label="Primary" className={className}>
       {/* role="list" preserves list semantics in Safari when list-style is removed. */}
       <ul role="list" className={styles.list}>
         {items.map((item) => (

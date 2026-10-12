@@ -1,6 +1,7 @@
 # ADR 0009 — Motion: CSS only, restrained, preference-aware
 
-**Status:** Accepted · **Date:** 2026-10-04
+**Status:** Accepted, superseded in part by [ADR 0015](0015-expressive-motion.md) (split text,
+marquee, drift, menu wipe, page transitions) · **Date:** 2026-10-04
 
 ## Context
 

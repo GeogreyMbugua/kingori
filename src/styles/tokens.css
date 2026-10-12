@@ -224,6 +224,7 @@
 
     /* ─── Stacking ─── */
     --z-raised: 10;
+    --z-header: 100;
     --z-skip-link: 1100;
 
     /*
@@ -234,9 +235,17 @@
     --duration-fast: 150ms;
     --duration-base: 250ms;
     --duration-slow: 600ms;
+    --duration-slower: 900ms; /* menu wipe, split-text entrances (ADR 0015) */
     --ease-standard: cubic-bezier(0.2, 0, 0, 1);
     --ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
     --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+    --ease-wipe: cubic-bezier(0.645, 0, 0, 1); /* slow start, long settle: wipes and reveals */
+
+    /* Expressive motion (ADR 0015) */
+    --stagger: 70ms; /* delay between split words and menu items */
+    --drift-subtle: 3rem; /* scroll drift travel, each way */
+    --drift-strong: 6rem;
+    --marquee-duration: 40s; /* one full loop */
   }
 
   /* tablet (see src/lib/breakpoints.ts) */

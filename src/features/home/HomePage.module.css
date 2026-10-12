@@ -57,6 +57,12 @@
   color: var(--color-text);
 }
 
+/* ─── Shows marquee ─── */
+
+.shows {
+  padding-block: var(--space-section) 0;
+}
+
 /* ─── Selected work ─── */
 
 .label {

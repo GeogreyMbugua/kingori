@@ -5,7 +5,8 @@
  *   Hover / focus      colour, underline       --duration-fast, --ease-standard
  *   Directional cues   CTA arrow nudge          --duration-base, --ease-standard
  *   Images, reveals    opacity + short rise     --duration-slow, --ease-emphasized
- *   Page transitions   none (see ADR 0009)
+ *   Split text, menu   word rise, clip wipe     --duration-slower, --ease-wipe
+ *   Page transitions   content crossfade + rise, header anchored (ADR 0015)
  *
  * Only opacity and transform animate. Component keyframes live in their CSS
  * Module (e.g. components/motion/Reveal.module.css).
@@ -15,11 +16,60 @@
  * these overrides also win against component CSS Modules.
  */
 @layer motion {
+  /* Page transitions: React <ViewTransition> tags page content with the "page" class. */
+  ::view-transition {
+    pointer-events: none;
+  }
+
+  ::view-transition-old(.page) {
+    animation: page-out var(--duration-base) var(--ease-exit) both;
+  }
+
+  ::view-transition-new(.page) {
+    animation: page-in var(--duration-slow) var(--ease-emphasized) both;
+  }
+
+  /* The header is the fixed reference point: it never animates between pages. */
+  ::view-transition-group(site-header) {
+    animation: none;
+    z-index: var(--z-header);
+  }
+
+  ::view-transition-old(site-header) {
+    display: none;
+  }
+
+  ::view-transition-new(site-header) {
+    animation: none;
+  }
+
+  @keyframes page-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(var(--space-6));
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     :root {
       --duration-fast: 0ms;
       --duration-base: 0ms;
       --duration-slow: 0ms;
+      --duration-slower: 0ms;
+      --stagger: 0ms;
+    }
+
+    ::view-transition-old(*),
+    ::view-transition-new(*),
+    ::view-transition-group(*) {
+      animation-duration: 0s !important;
+      animation-delay: 0s !important;
     }
 
     *,

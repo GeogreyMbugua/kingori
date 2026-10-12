@@ -1,13 +1,17 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { IndexList } from "@/components/editorial/IndexList";
 import { MediaSlot } from "@/components/media/MediaSlot";
+import { Marquee } from "@/components/motion/Marquee";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { contactContent } from "@/content/contact";
 import { mediaItems } from "@/content/media";
+import { getUpcomingShows } from "@/content/shows";
 import { projects } from "@/content/work";
 import { ContactPage } from "@/features/contact/ContactPage";
 import { HomePage } from "@/features/home/HomePage";
 import { MediaDetail } from "@/features/media/MediaDetail";
+import { ShowsPage } from "@/features/shows/ShowsPage";
 import { ProjectDetail } from "@/features/work/ProjectDetail";
 import { WorkIndex } from "@/features/work/WorkIndex";
 
@@ -112,6 +116,41 @@ describe("page compositions", () => {
       expect(container.querySelector(`time[datetime="${item.publishedAt}"]`)).not.toBeNull();
     },
   );
+
+  it("shows page lists upcoming dates with machine-readable times and labelled ticket links", () => {
+    const { container } = render(<ShowsPage />);
+    expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
+    expectNoSkippedLevels(container);
+
+    const upcoming = getUpcomingShows();
+    for (const show of upcoming) {
+      expect(container.querySelector(`time[datetime^="${show.date}"]`), show.slug).not.toBeNull();
+    }
+    for (const show of upcoming.filter((s) => s.availability === "on-sale")) {
+      const link = screen.getByRole("link", { name: new RegExp(`Tickets for ${show.city}`) });
+      expect(link.getAttribute("href")).toBe(show.ticketUrl);
+    }
+  });
+
+  it("marquee reads its items once and can be paused", () => {
+    render(<Marquee label="On tour" items={["First", "Second"]} />);
+    const region = screen.getByRole("region", { name: "On tour" });
+    expect(within(region).getAllByRole("listitem")).toHaveLength(2);
+
+    const toggle = within(region).getByRole("button", { name: "Pause On tour" });
+    fireEvent.click(toggle);
+    expect(region.hasAttribute("data-paused")).toBe(true);
+    expect(within(region).getByRole("button", { name: "Play On tour" })).toBeTruthy();
+  });
+
+  it("split text keeps the heading's text content intact", () => {
+    render(
+      <h2>
+        <SplitReveal text="Where is   Kingori" />
+      </h2>,
+    );
+    expect(screen.getByRole("heading", { level: 2 }).textContent).toBe("Where is Kingori");
+  });
 
   it("contact page makes the primary channel the obvious action", () => {
     render(<ContactPage />);

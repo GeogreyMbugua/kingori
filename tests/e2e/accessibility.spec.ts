@@ -7,6 +7,7 @@ const ROUTES = [
   "/work/image-study",
   "/work/written-piece",
   "/work/process-study",
+  "/shows",
   "/media",
   "/media/feature-gallery",
   "/media/short-film",
@@ -42,7 +43,7 @@ test.describe("automated accessibility (axe, WCAG 2.2 AA)", () => {
 test.describe("responsive and interaction guarantees", () => {
   test("no horizontal overflow at 320 CSS px (WCAG 1.4.10)", async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 640 });
-    for (const path of ["/", "/work", "/work/process-study", "/about", "/media", "/contact"]) {
+    for (const path of ["/", "/work", "/work/process-study", "/shows", "/about", "/media", "/contact"]) {
       await page.goto(path);
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -51,10 +52,18 @@ test.describe("responsive and interaction guarantees", () => {
     }
   });
 
-  test("primary navigation stays visible with 44px touch targets", async ({ page }) => {
+  test("navigation keeps 44px touch targets, inline or in the menu", async ({ page, isMobile }) => {
     await page.goto("/");
-    const links = page.getByRole("navigation", { name: "Primary" }).getByRole("link");
-    await expect(links).toHaveCount(4);
+    if (isMobile) {
+      const menuButton = page.getByRole("button", { name: "Menu" });
+      const box = await menuButton.boundingBox();
+      expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
+      await menuButton.click();
+    }
+    const links = page
+      .getByRole(isMobile ? "dialog" : "navigation", { name: isMobile ? "Menu" : "Primary" })
+      .getByRole("link");
+    await expect(links).toHaveCount(5);
 
     for (const link of await links.all()) {
       await expect(link).toBeVisible();

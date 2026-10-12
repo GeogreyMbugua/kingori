@@ -33,6 +33,8 @@ export interface HomeContent extends PageContent {
   readonly statement: { readonly lead: string; readonly accent: string; readonly tail: string };
   readonly selectedWorkHeading: string;
   readonly mediaHeading: string;
+  /** Marquee heading over upcoming dates, e.g. "Where's Kingori?". */
+  readonly showsHeading: string;
 }
 
 export interface AboutChapter {
@@ -121,6 +123,34 @@ export interface MediaItem {
   readonly body?: Paragraphs;
   readonly figures?: readonly EditorialFigure[];
   readonly relatedProjectSlug?: string;
+}
+
+/** Ticketing state for a show. "on-sale" requires a `ticketUrl`. */
+export type ShowAvailability = "announced" | "on-sale" | "sold-out" | "cancelled";
+
+/** One live date: a stand-up night, a talk, a festival slot or a broadcast appearance. */
+export interface Show {
+  readonly status: ContentStatus;
+  readonly slug: string;
+  readonly date: IsoDate;
+  /** Local start time, "HH:MM" (24-hour), when announced. */
+  readonly time?: `${number}:${number}`;
+  readonly city: string;
+  readonly country: string;
+  readonly venue: string;
+  /** Serif-italic descriptor, e.g. "Stand-up", "Keynote", "Festival". */
+  readonly kind: string;
+  readonly availability: ShowAvailability;
+  readonly ticketUrl?: `https://${string}`;
+}
+
+export interface ShowsContent extends CollectionPageContent {
+  /** Line shown when every listed date has passed. */
+  readonly pastMessage: string;
+  /** Large image behind the opening; a stage or crowd shot. */
+  readonly feature: ImageSlot;
+  /** Words that scroll in the marquee above the list, e.g. "On tour". */
+  readonly marquee: string;
 }
 
 export interface NotFoundContent {

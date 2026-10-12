@@ -60,6 +60,24 @@ describe("PageShell", () => {
     );
   });
 
+  it("offers a menu button controlling a modal menu with every destination", () => {
+    navigation.pathname = "/shows";
+    const { container } = renderShell();
+
+    expect(screen.getByRole("button", { name: "Menu" }).getAttribute("aria-haspopup")).toBe(
+      "dialog",
+    );
+    const dialog = container.querySelector("dialog");
+    expect(dialog?.getAttribute("aria-label")).toBe("Menu");
+    const links = [...(dialog?.querySelectorAll("a") ?? [])];
+    expect(links.map((link) => link.textContent?.replace(/^\d+/, ""))).toEqual(
+      primaryNavigation.map((item) => item.label),
+    );
+    expect(links.find((link) => link.getAttribute("href") === "/shows")?.getAttribute("aria-current")).toBe(
+      "page",
+    );
+  });
+
   it("marks the parent section on nested routes without claiming the exact page", () => {
     navigation.pathname = "/work/example";
     renderShell();

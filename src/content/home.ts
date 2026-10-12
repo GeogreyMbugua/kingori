@@ -13,4 +13,5 @@ export const homeContent: HomeContent = {
   },
   selectedWorkHeading: "Selected work",
   mediaHeading: "Latest media",
+  showsHeading: "Where's Kingori?",
 };

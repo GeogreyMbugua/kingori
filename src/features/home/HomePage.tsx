@@ -3,15 +3,21 @@ import { IndexList } from "@/components/editorial/IndexList";
 import { Invitation } from "@/components/editorial/Invitation";
 import { Grid, GridItem } from "@/components/layout/Grid";
 import { MediaSlot } from "@/components/media/MediaSlot";
+import { Drift } from "@/components/motion/Drift";
+import { Marquee } from "@/components/motion/Marquee";
 import { Reveal } from "@/components/motion/Reveal";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 import { GiantTitle } from "@/components/typography/GiantTitle";
 import { Text } from "@/components/typography/Text";
+import { Container } from "@/components/ui/Container";
 import { Link } from "@/components/ui/Link";
 import { Section } from "@/components/ui/Section";
 import { contactContent } from "@/content/contact";
 import { homeContent } from "@/content/home";
 import { MEDIA_FORMAT_LABELS, mediaItems } from "@/content/media";
+import { getUpcomingShows } from "@/content/shows";
 import { projects } from "@/content/work";
+import { formatDate } from "@/lib/date";
 import { buildSizes } from "@/lib/media";
 import styles from "./HomePage.module.css";
 
@@ -23,6 +29,8 @@ export function HomePage() {
   const [leadProject] = projects;
   const [leadMedia, ...moreMedia] = mediaItems;
   const { statement } = homeContent;
+  const leadWords = statement.lead.split(/\s+/).filter(Boolean).length;
+  const upcomingShows = getUpcomingShows();
 
   return (
     <>
@@ -31,7 +39,7 @@ export function HomePage() {
         <Grid>
           <GridItem span={{ tablet: 8, desktop: 8 }} className={styles.wordmark}>
             <GiantTitle as="h1" id="home-title">
-              {homeContent.title}
+              <SplitReveal text={homeContent.title} />
             </GiantTitle>
           </GridItem>
           <GridItem
@@ -39,7 +47,9 @@ export function HomePage() {
             start={{ tablet: 4, desktop: 9 }}
             className={styles.portrait}
           >
-            <MediaSlot slot={homeContent.portrait} ratio="4:5" sizes={portraitSizes} preload />
+            <Drift>
+              <MediaSlot slot={homeContent.portrait} ratio="4:5" sizes={portraitSizes} preload />
+            </Drift>
           </GridItem>
           <GridItem span={{ tablet: 3, desktop: 5 }} className={styles.intro}>
             <Text variant="body-lg">{homeContent.intro}</Text>
@@ -52,16 +62,43 @@ export function HomePage() {
 
       {/* Interruption: one statement on the light surface, nothing else. */}
       <Section as="div" surface="inverse" spacing="lg">
-        <Reveal>
-          <Grid>
-            <GridItem span={{ desktop: 10 }} start={{ desktop: 2 }}>
-              <p data-type="display" className={styles.statement}>
-                {statement.lead} <em>{statement.accent}</em> {statement.tail}
-              </p>
-            </GridItem>
-          </Grid>
-        </Reveal>
+        <Grid>
+          <GridItem span={{ desktop: 10 }} start={{ desktop: 2 }}>
+            <p data-type="display" className={styles.statement}>
+              <SplitReveal text={statement.lead} trigger="scroll" />{" "}
+              <em>
+                <SplitReveal text={statement.accent} trigger="scroll" offset={leadWords} />
+              </em>{" "}
+              <SplitReveal text={statement.tail} trigger="scroll" offset={leadWords + 1} />
+            </p>
+          </GridItem>
+        </Grid>
       </Section>
+
+      {upcomingShows.length > 0 ? (
+        <section aria-labelledby="home-shows" className={styles.shows}>
+          <Container>
+            <h2 id="home-shows" data-type="eyebrow" className={styles.label}>
+              {homeContent.showsHeading}
+            </h2>
+          </Container>
+          <Marquee
+            label="Upcoming dates"
+            items={upcomingShows.map((show) => (
+              <span key={show.slug}>
+                {show.city} <em>{formatDate(show.date)}</em>
+              </span>
+            ))}
+          />
+          <Container>
+            <p className={styles.more}>
+              <Link href="/shows" variant="cta">
+                All shows
+              </Link>
+            </p>
+          </Container>
+        </section>
+      ) : null}
 
       {leadProject ? (
         <Section labelledBy="home-work" className={styles.work}>

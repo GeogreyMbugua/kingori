@@ -1,12 +1,24 @@
 import { expect, test } from "@playwright/test";
 
+const SECTIONS = [
+  ["Work", "/work"],
+  ["Shows", "/shows"],
+  ["Media", "/media"],
+  ["About", "/about"],
+  ["Contact", "/contact"],
+] as const;
+
 test.describe("site foundation", () => {
-  test("homepage exposes language, landmarks and a single h1", async ({ page }) => {
+  test("homepage exposes language, landmarks and a single h1", async ({ page, isMobile }) => {
     await page.goto("/");
 
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
     await expect(page.getByRole("banner")).toBeVisible();
-    await expect(page.getByRole("navigation", { name: "Primary" })).toBeVisible();
+    if (isMobile) {
+      await expect(page.getByRole("button", { name: "Menu" })).toBeVisible();
+    } else {
+      await expect(page.getByRole("navigation", { name: "Primary" })).toBeVisible();
+    }
     await expect(page.getByRole("main")).toBeVisible();
     await expect(page.getByRole("contentinfo")).toBeVisible();
     await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
@@ -28,21 +40,44 @@ test.describe("site foundation", () => {
     await expect(page.getByRole("main")).toBeFocused();
   });
 
-  test("primary navigation reaches each section and marks the current page", async ({ page }) => {
+  test("primary navigation reaches each section and marks the current page", async ({
+    page,
+    isMobile,
+  }) => {
     await page.goto("/");
-    const nav = page.getByRole("navigation", { name: "Primary" });
 
-    for (const [label, path] of [
-      ["Work", "/work"],
-      ["Media", "/media"],
-      ["About", "/about"],
-      ["Contact", "/contact"],
-    ] as const) {
+    const menu = page.getByRole("dialog", { name: "Menu" });
+    const nav = isMobile ? menu : page.getByRole("navigation", { name: "Primary" });
+    const openNav = async () => {
+      if (isMobile) await page.getByRole("button", { name: "Menu" }).click();
+    };
+
+    for (const [label, path] of SECTIONS) {
+      await openNav();
       await nav.getByRole("link", { name: label }).click();
+      if (isMobile) await expect(menu).toBeHidden();
       await expect(page).toHaveURL(path);
-      await expect(nav.getByRole("link", { name: label })).toHaveAttribute("aria-current", "page");
       await expect(page.getByRole("heading", { level: 1 })).toHaveText(label);
+
+      await openNav();
+      await expect(nav.getByRole("link", { name: label })).toHaveAttribute("aria-current", "page");
+      if (isMobile) await page.keyboard.press("Escape");
     }
+  });
+
+  test("the mobile menu traps focus and closes with Escape", async ({ page, isMobile }) => {
+    test.skip(!isMobile, "The menu button only shows below 48em");
+    await page.goto("/");
+    const button = page.getByRole("button", { name: "Menu" });
+    await button.click();
+
+    const menu = page.getByRole("dialog", { name: "Menu" });
+    await expect(menu).toBeVisible();
+    await expect(menu.getByRole("link")).toHaveCount(SECTIONS.length);
+
+    await page.keyboard.press("Escape");
+    await expect(menu).toBeHidden();
+    await expect(button).toBeFocused();
   });
 
   test("route pages declare a canonical URL", async ({ page }) => {

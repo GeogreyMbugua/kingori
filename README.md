@@ -2,7 +2,8 @@
 
 Public-facing editorial and portfolio website for Kingori. The visual direction is art-directed and
 editorial: oversized typography, strong compositions, isolated objects, photography, asymmetry,
-layering and restrained motion.
+layering and expressive but accessible motion (split-text reveals, marquees, scroll drift, a
+full-screen menu and page transitions; ADR 0015).
 
 > **Status: Phase 3 — page composition.** Every page is composed (ADR 0014) on top of the design
 > system (Phase 2). Content runs on the final schemas with a clearly marked placeholder dataset and
@@ -170,6 +171,39 @@ These must never happen, and lint fails if they do:
 - `config/` is not editorial. It holds site identity, navigation and SEO defaults.
 - Content is read through small selectors (`getProjectBySlug`), so the source can later move to
   MDX or a CMS without touching features.
+
+### Replacing placeholders
+
+Swapping in real content never touches pages or components. Edit the content module, then run
+`npm run dev` and check `/design-system` → "Content status" for what is still outstanding.
+
+| Content            | File                       | What to change                                                |
+| ------------------ | -------------------------- | ------------------------------------------------------------- |
+| Homepage copy      | `src/content/home.ts`      | `intro`, `statement`, `showsHeading`, `portrait`              |
+| Shows / tour dates | `src/content/shows.ts`     | Replace the `shows` array; set `ticketUrl` when on sale       |
+| Projects           | `src/content/work.ts`      | One entry per project; optional fields change the layout      |
+| Media              | `src/content/media.ts`     | Videos need an `asset`, essays a `body`, galleries `figures`  |
+| About / Contact    | `src/content/about.ts`, `contact.ts` | Bio chapters, capabilities, channels               |
+
+To replace an image, drop the file in `public/images/...` and change the pending slot to an image:
+
+```ts
+// before
+portrait: { kind: "pending", media: "image", description: "Portrait of Kingori" },
+// after
+portrait: {
+  kind: "image",
+  src: "/images/people/kingori-portrait.webp",
+  width: 2400,
+  height: 3000,
+  alt: "Kingori laughing on stage under a single spotlight",
+  focalPoint: { x: 50, y: 30 }, // keeps the face in frame for every crop
+},
+```
+
+The page keeps its crop ratio, so any reasonably large source works. Set `status: "final"` on each
+entry once its copy and assets are real. Motion (split text, drift, marquees) applies to real
+content automatically.
 
 ## Asset strategy
 

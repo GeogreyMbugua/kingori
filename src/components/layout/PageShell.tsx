@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { SkipLink } from "@/components/layout/SkipLink";
+import { PageTransition } from "@/components/motion/PageTransition";
 import type { NavigationItem } from "@/types/navigation";
 import styles from "./PageShell.module.css";
 
@@ -20,7 +21,7 @@ export function PageShell({ siteName, navigation, children }: PageShellProps) {
       <Header siteName={siteName} navigation={navigation} />
       {/* tabIndex lets the skip link move keyboard focus, not just scroll. */}
       <main id={MAIN_CONTENT_ID} tabIndex={-1} className={styles.main}>
-        {children}
+        <PageTransition>{children}</PageTransition>
       </main>
       <Footer siteName={siteName} />
     </div>

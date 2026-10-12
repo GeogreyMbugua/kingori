@@ -1,0 +1,36 @@
+.subtle {
+  --drift-distance: var(--drift-subtle);
+}
+
+.strong {
+  --drift-distance: var(--drift-strong);
+}
+
+.up {
+  --drift-from: var(--drift-distance);
+  --drift-to: calc(var(--drift-distance) * -1);
+}
+
+.down {
+  --drift-from: calc(var(--drift-distance) * -1);
+  --drift-to: var(--drift-distance);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .drift {
+      animation: drift linear both;
+      animation-timeline: view();
+    }
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translateY(var(--drift-from));
+  }
+
+  to {
+    transform: translateY(var(--drift-to));
+  }
+}

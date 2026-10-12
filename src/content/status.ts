@@ -2,6 +2,7 @@ import { aboutContent } from "@/content/about";
 import { contactContent } from "@/content/contact";
 import { homeContent } from "@/content/home";
 import { mediaContent, mediaItems } from "@/content/media";
+import { shows, showsContent } from "@/content/shows";
 import { projects, workContent } from "@/content/work";
 
 function hasPendingAsset(value: unknown): boolean {
@@ -19,6 +20,8 @@ export function findPlaceholderContent(): readonly string[] {
     ["contact", contactContent],
     ["work", workContent],
     ["media", mediaContent],
+    ["shows", showsContent],
+    ...shows.map((show): [string, typeof show] => [`shows/${show.slug}`, show]),
     ...projects.map((project): [string, typeof project] => [`work/${project.slug}`, project]),
     ...mediaItems.map((item): [string, typeof item] => [`media/${item.slug}`, item]),
   ];

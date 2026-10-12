@@ -1,6 +1,7 @@
 # ADR 0010 — Mobile navigation: always visible, no menu button
 
-**Status:** Accepted · **Date:** 2026-10-04
+**Status:** Superseded below 48em by [ADR 0016](0016-shows-and-menu-navigation.md) (menu overlay
+for five destinations) · **Date:** 2026-10-04
 
 ## Context
 

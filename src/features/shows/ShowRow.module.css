@@ -1,0 +1,119 @@
+/*
+ * Mobile: date block above place and action. Tablet+: one row on the site grid,
+ * date left, place across the middle, action right.
+ */
+.row {
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-6);
+  border-block-end: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.date {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.day {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-display);
+  font-weight: var(--weight-heavy);
+  font-stretch: var(--stretch-condensed);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.place {
+  display: grid;
+  gap: var(--space-1);
+}
+
+/* Sold out and cancelled dates stay listed but read as unavailable, with a text label too. */
+.struck {
+  text-decoration-line: line-through;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: var(--border-width-thick);
+  color: var(--color-text-muted);
+}
+
+.venue {
+  color: var(--color-text-secondary);
+}
+
+.kind {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--size-touch-target);
+}
+
+.status[data-availability="sold-out"],
+.status[data-availability="cancelled"] {
+  color: var(--color-accent-text);
+}
+
+@media (hover: hover) {
+  .row {
+    transition: background-color var(--duration-fast) var(--ease-standard);
+  }
+
+  .row:hover .day {
+    color: var(--color-accent-text);
+  }
+}
+
+/* tablet */
+@media (min-width: 48em) {
+  .row {
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+    align-items: center;
+  }
+
+  .date {
+    grid-column: 1 / span 3;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .place {
+    grid-column: 4 / span 3;
+  }
+
+  .action {
+    grid-column: 7 / span 2;
+    justify-self: end;
+  }
+}
+
+/* desktop */
+@media (min-width: 64em) {
+  .date {
+    grid-column: 1 / span 3;
+  }
+
+  .place {
+    grid-column: 4 / span 6;
+  }
+
+  .action {
+    grid-column: 10 / span 3;
+  }
+}

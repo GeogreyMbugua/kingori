@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MenuOverlay } from "@/components/navigation/MenuOverlay";
 import { PrimaryNav } from "@/components/navigation/PrimaryNav";
 import { Container } from "@/components/ui/Container";
 import type { NavigationItem } from "@/types/navigation";
@@ -16,7 +17,8 @@ export function Header({ siteName, navigation }: HeaderProps) {
         <Link href="/" className={styles.home}>
           {siteName}
         </Link>
-        <PrimaryNav items={navigation} />
+        <PrimaryNav items={navigation} className={styles.nav} />
+        <MenuOverlay items={navigation} siteName={siteName} />
       </Container>
     </header>
   );

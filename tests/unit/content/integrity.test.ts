@@ -1,11 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { getMediaItemBySlug, mediaItems } from "@/content/media";
 import { assertLaunchReady, findPlaceholderContent } from "@/content/status";
+import { getUpcomingShows, shows } from "@/content/shows";
 import { getProjectBySlug, getRelatedProjects, projects } from "@/content/work";
 
 describe("content integrity", () => {
   it("uses unique, URL-safe slugs", () => {
-    for (const slugs of [projects.map((p) => p.slug), mediaItems.map((m) => m.slug)]) {
+    for (const slugs of [
+      projects.map((p) => p.slug),
+      mediaItems.map((m) => m.slug),
+      shows.map((s) => s.slug),
+    ]) {
       expect(new Set(slugs).size).toBe(slugs.length);
       for (const slug of slugs) expect(slug).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
     }
@@ -37,6 +42,24 @@ describe("content integrity", () => {
     }
     expect(getMediaItemBySlug("does-not-exist")).toBeUndefined();
   });
+
+  it("gives every on-sale show a ticket link and valid dates", () => {
+    for (const show of shows) {
+      if (show.availability === "on-sale") expect(show.ticketUrl, show.slug).toBeDefined();
+      expect(Number.isNaN(Date.parse(show.date)), show.slug).toBe(false);
+      if (show.time) expect(show.time, show.slug).toMatch(/^([01]\d|2[0-3]):[0-5]\d$/);
+    }
+  });
+
+  it("lists upcoming shows soonest first and drops past dates", () => {
+    const sorted = [...shows].sort((a, b) => a.date.localeCompare(b.date));
+    const [first, second] = sorted;
+    expect(getUpcomingShows("1900-01-01")).toEqual(sorted);
+    expect(getUpcomingShows("9999-12-31")).toEqual([]);
+    if (first && second) {
+      expect(getUpcomingShows(second.date)).not.toContain(first);
+    }
+  });
 });
 
 describe("launch guard", () => {
@@ -47,6 +70,9 @@ describe("launch guard", () => {
     }
     for (const item of mediaItems.filter((m) => m.status === "placeholder")) {
       expect(pending).toContain(`media/${item.slug}`);
+    }
+    for (const show of shows.filter((s) => s.status === "placeholder")) {
+      expect(pending).toContain(`shows/${show.slug}`);
     }
   });
 

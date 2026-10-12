@@ -1,0 +1,22 @@
+.opening {
+  row-gap: var(--space-5);
+}
+
+.intro {
+  display: grid;
+  gap: var(--space-4);
+  align-content: end;
+}
+
+/* Edge to edge; the overflow clip keeps the drift inside the frame. */
+.feature {
+  overflow: clip;
+}
+
+.label {
+  margin-block-end: var(--space-5);
+}
+
+.list {
+  border-block-start: var(--border-width-thin) solid var(--color-border-subtle);
+}

@@ -1,0 +1,112 @@
+.marquee {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-4);
+  border-block: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.track {
+  display: flex;
+  inline-size: max-content;
+}
+
+.run {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding-inline-end: var(--space-6);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-display);
+  font-weight: var(--weight-heavy);
+  font-stretch: var(--stretch-condensed);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.item em {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-regular);
+  font-stretch: normal;
+  letter-spacing: var(--tracking-normal);
+}
+
+.mark {
+  font-size: 0.5em;
+  color: var(--color-accent);
+}
+
+.toggle {
+  position: absolute;
+  inset-block-end: var(--space-1);
+  inset-inline-end: var(--gutter);
+  min-block-size: var(--size-touch-target);
+  min-inline-size: var(--size-touch-target);
+  padding-inline: var(--space-3);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-meta);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-ui);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  border: var(--border-width-thin) solid var(--color-border-strong);
+  border-radius: var(--radius-none);
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .track {
+    animation: marquee var(--marquee-duration) linear infinite;
+  }
+
+  .right .track {
+    animation-direction: reverse;
+  }
+
+  .marquee[data-paused] .track {
+    animation-play-state: paused;
+  }
+
+  @media (hover: hover) {
+    .marquee:hover .track {
+      animation-play-state: paused;
+    }
+  }
+
+  .marquee:focus-within .track {
+    animation-play-state: paused;
+  }
+}
+
+/* Still: the visible run wraps instead of scrolling, the loop copy and control go away. */
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    inline-size: auto;
+  }
+
+  .run {
+    flex-wrap: wrap;
+    flex-shrink: 1;
+  }
+
+  .run[aria-hidden],
+  .toggle {
+    display: none;
+  }
+
+  .item {
+    white-space: normal;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
