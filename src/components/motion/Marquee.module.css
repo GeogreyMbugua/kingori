@@ -42,22 +42,9 @@
   color: var(--color-accent);
 }
 
-.toggle {
-  position: absolute;
-  inset-block-end: var(--space-1);
-  inset-inline-end: var(--gutter);
-  min-block-size: var(--size-touch-target);
-  min-inline-size: var(--size-touch-target);
-  padding-inline: var(--space-3);
-  font-family: var(--font-sans);
-  font-size: var(--font-size-meta);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-ui);
-  color: var(--color-text);
-  background-color: var(--color-background);
-  border: var(--border-width-thin) solid var(--color-border-strong);
-  border-radius: var(--radius-none);
-  cursor: pointer;
+/* The strip is a tab stop so keyboard users can pause it; the ring sits inside the clip. */
+.marquee:focus-visible {
+  outline-offset: calc(var(--focus-ring-width) * -1);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -67,10 +54,6 @@
 
   .right .track {
     animation-direction: reverse;
-  }
-
-  .marquee[data-paused] .track {
-    animation-play-state: paused;
   }
 
   @media (hover: hover) {
@@ -84,7 +67,7 @@
   }
 }
 
-/* Still: the visible run wraps instead of scrolling, the loop copy and control go away. */
+/* Still: the visible run wraps instead of scrolling and the loop copy goes away. */
 @media (prefers-reduced-motion: reduce) {
   .track {
     inline-size: auto;
@@ -95,8 +78,7 @@
     flex-shrink: 1;
   }
 
-  .run[aria-hidden],
-  .toggle {
+  .run[aria-hidden] {
     display: none;
   }
 

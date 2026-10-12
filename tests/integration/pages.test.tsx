@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { IndexList } from "@/components/editorial/IndexList";
 import { MediaSlot } from "@/components/media/MediaSlot";
@@ -132,15 +132,11 @@ describe("page compositions", () => {
     }
   });
 
-  it("marquee reads its items once and can be paused", () => {
+  it("marquee reads its items once and is a tab stop so keyboard focus can pause it", () => {
     render(<Marquee label="On tour" items={["First", "Second"]} />);
     const region = screen.getByRole("region", { name: "On tour" });
     expect(within(region).getAllByRole("listitem")).toHaveLength(2);
-
-    const toggle = within(region).getByRole("button", { name: "Pause On tour" });
-    fireEvent.click(toggle);
-    expect(region.hasAttribute("data-paused")).toBe(true);
-    expect(within(region).getByRole("button", { name: "Play On tour" })).toBeTruthy();
+    expect(region.getAttribute("tabindex")).toBe("0");
   });
 
   it("split text keeps the heading's text content intact", () => {
