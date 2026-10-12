@@ -36,7 +36,7 @@ export const siteConfig: SiteConfig = {
   staticExport: process.env.STATIC_EXPORT === "true",
   locale: "en",
   allowIndexing: parseAllowIndexing(process.env.SITE_ALLOW_INDEXING),
-  themeColor: "#000030",
+  themeColor: "#060614",
   designSystemPreview: parseDesignSystemPreview(
     process.env.ENABLE_DESIGN_SYSTEM_PREVIEW,
     process.env.NODE_ENV,

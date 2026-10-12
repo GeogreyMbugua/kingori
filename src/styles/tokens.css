@@ -22,6 +22,16 @@
     --brand-soft-white: #f0f0f0;
     --brand-lavender-white: #e8e8f0;
 
+    /*
+     * ─── Ink: near-black grounds with a navy undertone (ADR 0017) ───
+     * The core navies are pure blue-channel colours that read as saturated
+     * blue on vivid and OLED screens. Ink tones are each core colour mixed
+     * with black plus 2.5% soft white, which neutralises the hue.
+     */
+    --brand-ink: #060614; /* deep navy 30% + black: page background */
+    --brand-ink-surface: #0c0c20; /* midnight navy 40% + black: panels, menu */
+    --brand-ink-raised: #1e162e; /* muted purple 50% + black: raised sections */
+
     /* ─── Derived tones: mixes of core colours that unlock accessible uses ─── */
     --brand-hot-pink-light: #d37da3; /* pink + 40% soft white: pink text on dark */
     --brand-hot-pink-deep: #a32966; /* pink + 15% navy: hover; pink text on light */
@@ -56,9 +66,9 @@
     color-scheme: dark;
 
     /* Base */
-    --color-background: var(--brand-deep-navy);
-    --color-surface: var(--brand-midnight-navy);
-    --color-surface-raised: var(--brand-muted-purple);
+    --color-background: var(--brand-ink);
+    --color-surface: var(--brand-ink-surface);
+    --color-surface-raised: var(--brand-ink-raised);
     --color-surface-structural: var(--brand-blue);
 
     --color-text: var(--brand-soft-white);

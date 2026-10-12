@@ -1,6 +1,7 @@
 # ADR 0006 — Brand colour palette and semantic colour contracts
 
-**Status:** Accepted · **Date:** 2026-10-04
+**Status:** Accepted, surface roles amended by [ADR 0017](0017-ink-grounds.md) (ink grounds) ·
+**Date:** 2026-10-04
 
 ## Context
 

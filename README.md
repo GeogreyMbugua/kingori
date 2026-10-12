@@ -237,9 +237,11 @@ Dark-first brand palette (full rationale and contrast table in
 
 | Role                  | Brand colour   | HEX       | Semantic token               |
 | --------------------- | -------------- | --------- | ---------------------------- |
-| Primary background    | Deep Navy      | `#000030` | `--color-background`         |
-| Secondary dark surface| Midnight Navy  | `#101040` | `--color-surface`            |
-| Supporting graphic    | Muted Purple   | `#302050` | `--color-surface-raised`     |
+| Primary background    | Ink (from Deep Navy)      | `#060614` | `--color-background`  |
+| Secondary dark surface| Ink surface (from Midnight Navy) | `#0C0C20` | `--color-surface` |
+| Raised surface        | Ink raised (from Muted Purple)   | `#1E162E` | `--color-surface-raised` |
+| Core navies           | Deep Navy, Midnight Navy | `#000030`, `#101040` | Brand primitives; ink tones derive from them (ADR 0017) |
+| Supporting graphic    | Muted Purple   | `#302050` | `--color-border-subtle`      |
 | Structural accent     | Blue           | `#003090` | `--color-surface-structural`, `--color-border` |
 | Editorial accent      | Hot Pink       | `#C03070` | `--color-accent` (+ `-hover`, `-active`, `-subtle`, `-contrast`, `-text`) |
 | Energy / emphasis     | Coral Red      | `#E05050` | `--color-emphasis`           |

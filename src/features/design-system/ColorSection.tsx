@@ -3,6 +3,9 @@ import { ContrastSample } from "./ContrastSample";
 import styles from "./DesignSystem.module.css";
 
 const BRAND = [
+  "ink",
+  "ink-surface",
+  "ink-raised",
   "deep-navy",
   "midnight-navy",
   "muted-purple",
