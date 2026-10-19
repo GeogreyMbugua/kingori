@@ -25,7 +25,7 @@
 .heroBackdrop {
   position: absolute;
   inset: 0;
-  background-image: url("/images/backgrounds/bg-3.webp");
+  background-image: var(--hero-backdrop);
   /* The lit stage sits on the left. A tall phone crop otherwise lands on the dark wall. */
   background-position: left center;
   background-size: cover;

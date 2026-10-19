@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { withBasePath } from "@/lib/url";
 import styles from "./AboutImageTrail.module.css";
 
 type Photograph = { src: string; alt?: string };
@@ -51,7 +52,7 @@ export function AboutImageTrail({ images, children }: Props) {
       card.style.top = `${y}px`;
       card.style.setProperty("--trail-rotation", `${rotation}deg`);
       const image = document.createElement("img");
-      image.src = source.src;
+      image.src = withBasePath(source.src);
       image.alt = "";
       image.draggable = false;
       image.decoding = "async";
@@ -92,7 +93,7 @@ export function AboutImageTrail({ images, children }: Props) {
       if (!source) return;
       index += 1;
       const image = document.createElement("img");
-      image.src = source.src;
+      image.src = withBasePath(source.src);
       image.alt = "";
       image.draggable = false;
       image.decoding = "async";

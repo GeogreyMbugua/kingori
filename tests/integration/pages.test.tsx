@@ -79,6 +79,9 @@ describe("page compositions", () => {
     expect(screen.getByRole("link", { name: contactContent.invitation }).getAttribute("href")).toBe(
       "/contact",
     );
+    expect(container.querySelector("[style*='bg-3.webp']")?.getAttribute("style")).toContain(
+      'url("/images/backgrounds/bg-3.webp")',
+    );
   });
 
   it("work index presents every project as a labelled article", () => {

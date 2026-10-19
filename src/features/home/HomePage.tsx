@@ -1,4 +1,5 @@
 import type { Route } from "next";
+import type { CSSProperties } from "react";
 import { Invitation } from "@/components/editorial/Invitation";
 import { Grid, GridItem } from "@/components/layout/Grid";
 import { MediaSlot } from "@/components/media/MediaSlot";
@@ -15,6 +16,7 @@ import { contactContent } from "@/content/contact";
 import { archiveThemes, homeContent } from "@/content/home";
 import { MEDIA_FORMAT_LABELS, publishedMedia } from "@/content/media";
 import { buildSizes } from "@/lib/media";
+import { withBasePath } from "@/lib/url";
 import styles from "./HomePage.module.css";
 
 const heroMediaSizes = buildSizes({ base: "100vw", tablet: "50vw", desktop: "40vw", wide: "51rem" });
@@ -31,7 +33,11 @@ export function HomePage() {
     <>
       {/* The split opening pairs brand and next steps with the full-height portrait. */}
       <Section spacing="sm" labelledBy="home-title" className={styles.hero}>
-        <div className={styles.heroBackdrop} aria-hidden="true" />
+        <div
+          className={styles.heroBackdrop}
+          style={{ "--hero-backdrop": `url("${withBasePath("/images/backgrounds/bg-3.webp")}")` } as CSSProperties}
+          aria-hidden="true"
+        />
         <Grid className={styles.heroGrid}>
           <GridItem span={{ tablet: 6, desktop: 6 }} className={styles.heroText}>
             <Eyebrow className={styles.heroEyebrow}>Questions that matter</Eyebrow>
