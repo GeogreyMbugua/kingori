@@ -1,0 +1,103 @@
+.root {
+  padding-block: var(--space-4) var(--space-5);
+  color: inherit;
+}
+
+.stage {
+  position: relative;
+  inline-size: min(78%, 22rem);
+  aspect-ratio: 3 / 4;
+  margin: var(--space-4) auto var(--space-5);
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+}
+
+.stage:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-text);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background-color: var(--color-surface);
+  border: var(--border-width-thin) solid color-mix(in srgb, currentColor 14%, transparent);
+  box-shadow: 0 var(--space-2) var(--space-5) color-mix(in srgb, black 35%, transparent);
+}
+
+.photo {
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.card[data-depth="2"] {
+  z-index: 0;
+  transform: translate(var(--space-3), var(--space-1)) rotate(7deg);
+}
+
+.card[data-depth="1"] {
+  z-index: 1;
+  transform: translate(calc(var(--space-2) * -1), calc(var(--space-1) / 2)) rotate(-5deg);
+}
+
+.card[data-depth="0"] {
+  z-index: 2;
+  transform: rotate(-1deg);
+  animation: reveal-next var(--duration-base) var(--ease-emphasized) both;
+}
+
+.card[data-direction="-1"][data-depth="0"] {
+  animation-name: reveal-previous;
+}
+
+.stage[data-swiping] .card[data-depth="0"] {
+  animation: none;
+  transform: translateX(var(--swipe-x)) rotate(calc(-1deg + var(--swipe-turn)));
+  transition: transform var(--duration-base) var(--ease-emphasized);
+}
+
+.stage[data-dragging] .card[data-depth="0"] {
+  transition: none;
+}
+
+.controls {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+}
+
+.hint,
+.count {
+  margin: 0;
+}
+
+@keyframes reveal-next {
+  from {
+    opacity: 0.4;
+    transform: translateX(var(--space-5)) rotate(5deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(-1deg);
+  }
+}
+
+@keyframes reveal-previous {
+  from {
+    opacity: 0.4;
+    transform: translateX(calc(var(--space-5) * -1)) rotate(-6deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(-1deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card[data-depth="0"] {
+    animation: none;
+  }
+}

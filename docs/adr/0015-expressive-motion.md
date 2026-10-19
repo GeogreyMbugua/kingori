@@ -49,7 +49,9 @@ Rules:
 - `PageTransition` falls back to unwrapped content where `React.ViewTransition` is absent (plain
   React in unit tests).
 - The axe suite runs with `reducedMotion: "reduce"`, so it scans final states.
-- The About opening lays a pointer trail of the supplied photographs behind the type. The
-  trail ignores input. Touch uses a shallow ambient photograph above that opening, changing
-  every five seconds while the opening is on screen. Reduced motion shows one still frame.
+- The About opening lays a pointer trail of the supplied photographs behind the type from
+  tablet up, on a fine pointer, when motion is allowed. The trail ignores input. Below tablet
+  those photographs are a stack the reader swipes. The card follows the finger, then
+  leaves or settles back. Arrow keys change the photograph without a drag. Reduced motion
+  changes the stack without an animation.
 - Not adopted: the reference site's peel stickers, hero carousel and image sprite loops.

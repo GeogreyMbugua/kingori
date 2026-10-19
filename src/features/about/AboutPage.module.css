@@ -14,7 +14,12 @@
 }
 
 .portrait {
+  display: none;
   margin-inline: calc(var(--gutter) * -1);
+}
+
+.mobileStack {
+  min-inline-size: 0;
 }
 
 .statement {
@@ -37,7 +42,12 @@
     align-items: center;
   }
 
+  .mobileStack {
+    display: none;
+  }
+
   .portrait {
+    display: block;
     grid-row: 1 / -1;
     margin-inline-end: 0;
   }

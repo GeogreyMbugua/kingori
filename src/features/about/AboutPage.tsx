@@ -7,14 +7,16 @@ import { aboutContent, aboutPhotographs } from "@/content/about";
 import { contactContent } from "@/content/contact";
 import { buildSizes } from "@/lib/media";
 import { AboutImageTrail } from "./AboutImageTrail";
+import { MobilePhotoStack } from "./MobilePhotoStack";
 import styles from "./AboutPage.module.css";
 
 const portraitSizes = buildSizes({ base: "100vw", tablet: "50vw", wide: "40rem" });
 
 /**
- * The portrait and the biography share one opening. A pointer trail sits
- * behind that opening on a fine pointer. Touch shows one ambient photograph
- * in a shallow band above it. Reduced motion keeps a single still frame.
+ * From tablet up, the portrait and the biography share one opening and a
+ * pointer trail sits behind it. On a small screen the portrait is hidden and
+ * a swipeable stack of the same photographs sits between the statement and
+ * the chapters.
  */
 export function AboutPage() {
   const { chapters } = aboutContent;
@@ -35,6 +37,9 @@ export function AboutPage() {
               <p data-type="quote" className={styles.statement}>
                 {aboutContent.statement}
               </p>
+            </GridItem>
+            <GridItem className={styles.mobileStack}>
+              <MobilePhotoStack images={aboutPhotographs} />
             </GridItem>
             <GridItem span={{ tablet: 4, desktop: 5 }} className={styles.portrait}>
               <MediaSlot slot={aboutContent.portrait} ratio="3:4" sizes={portraitSizes} preload />

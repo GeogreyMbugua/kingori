@@ -13,8 +13,10 @@ Recurring rules that make the pages read as one voice:
 
 - **Section openings.** Work, Media and Contact open with the section name as `giant` type,
   answered by a short line in the remaining columns. About keeps the portrait and the biography
-  in one composition: the title is `display`, and the chapters sit beside the portrait rather
-  than in a following section. The homepage opens with the name itself.
+  in one composition from tablet up: the title is `display`, and the chapters sit beside the
+  portrait rather than in a following section. Below tablet the portrait is hidden and a
+  swipeable stack of the same photographs sits between the statement and the chapters. The
+  homepage opens with the name itself.
 - **Two voices.** Bricolage speaks for the site (titles, navigation, metadata). Newsreader italic
   is reserved for *someone else's words and descriptors*: statements from a work, Kingori's
   first-person statement, categories and formats ("Photography", "Essay"). It is not decoration.

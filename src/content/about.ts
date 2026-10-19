@@ -1,7 +1,7 @@
 import type { AboutContent } from "@/types/content";
 import type { InformativeImage } from "@/types/media";
 
-/** Photographs for the About strip. Crops keep the person in frame. */
+/** Photographs for the About trail and the small-screen stack. */
 export const aboutPhotographs: readonly InformativeImage[] = [
   {
     kind: "image",
