@@ -86,13 +86,10 @@ test.describe("site foundation", () => {
       "href",
       "https://www.youtube.com/watch?v=MkC40xneDgc",
     );
-    const player = page.getByTitle("Here's Where Couples Lose The Money Game");
-    await expect(player).toBeVisible();
+    await expect(page.locator("iframe")).toHaveCount(0);
 
     await watch.focus();
     await expect(watch).toBeFocused();
-    await player.focus();
-    await expect(player).toBeFocused();
   });
 
   test("route pages declare a canonical URL", async ({ page }) => {

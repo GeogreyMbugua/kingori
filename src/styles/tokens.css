@@ -222,6 +222,8 @@
      * (WCAG 1.4.4-safe). Display tiers grow more by design; see ADR 0007.
      */
     --font-size-giant: clamp(4rem, 1.4286rem + 12.8571vw, 13rem); /* 64 → 208px */
+    /* Home name only. Giant stops at 90rem; this keeps the word with the wide column. */
+    --font-size-hero: var(--font-size-giant);
     --font-size-display: clamp(2.75rem, 1.25rem + 7.5vw, 8rem); /* 44 → 128px */
     --font-size-heading-xl: clamp(2.25rem, 1.4643rem + 3.9286vw, 5rem); /* 36 → 80px */
     --font-size-h1: clamp(2rem, 1.5714rem + 2.1429vw, 3.5rem); /* 32 → 56px */
@@ -269,6 +271,10 @@
     --width-reading: 42rem; /* ≈ 66ch of body serif */
     --width-content: 80rem;
     --width-wide: 104rem;
+    /* The centred column. Wide screens step up to --width-wide (ADR 0008). */
+    --width-page: var(--width-content);
+    /* Distance from the viewport edge to the column's text, on a full-bleed box. */
+    --page-inset: max(var(--gutter), calc((100% - var(--width-page)) / 2));
     --measure: 66ch;
     --gutter: clamp(1rem, 0.4286rem + 2.8571vw, 3rem); /* 16 → 48px */
     --grid-columns: 4;
@@ -324,6 +330,15 @@
     :root {
       --grid-columns: 12;
       --grid-gap: var(--space-6);
+    }
+  }
+
+  /* wide: the column grows once, then stays put on larger monitors */
+  @media (min-width: 90em) {
+    :root {
+      --width-page: var(--width-wide);
+      /* 208px at 90rem, 320px by 120rem, then it stops with the column. */
+      --font-size-hero: clamp(13rem, -8rem + 23.33vw, 20rem);
     }
   }
 }

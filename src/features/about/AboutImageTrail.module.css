@@ -1,0 +1,128 @@
+.root {
+  position: relative;
+  isolation: isolate;
+}
+
+.trail {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  position: absolute;
+  inline-size: clamp(130px, 18vw, 240px);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: trail-life 1.4s ease-out forwards;
+}
+
+.card img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  max-block-size: 280px;
+  object-fit: contain;
+}
+
+@keyframes trail-life {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--trail-rotation)) scale(0.82);
+    clip-path: inset(45% 0 45% 0);
+  }
+
+  16% {
+    opacity: 0.65;
+    transform: translate(-50%, -50%) rotate(var(--trail-rotation)) scale(1);
+    clip-path: inset(0);
+  }
+
+  52% {
+    opacity: 0.65;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -58%) rotate(var(--trail-rotation)) scale(0.9);
+    clip-path: inset(0);
+  }
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .trail {
+    display: none;
+  }
+}
+
+/* A shallow band above the opening on touch. The biography and portrait stay put. */
+.ambient {
+  display: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .ambient {
+    display: block;
+    position: relative;
+    block-size: 150px;
+    margin-inline: var(--gutter);
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .ambientPhoto,
+  .ambientStill {
+    position: absolute;
+    inset-block-start: 12px;
+    inset-inline-end: 8%;
+    inline-size: 105px;
+    block-size: 125px;
+    object-fit: contain;
+    opacity: 0.78;
+    transform: rotate(-5deg);
+  }
+
+  .ambientPhoto {
+    animation: ambient-photo-life 5s ease-in-out both;
+    will-change: transform, opacity;
+  }
+}
+
+@keyframes ambient-photo-life {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) rotate(-7deg);
+  }
+
+  18% {
+    opacity: 0.78;
+  }
+
+  78% {
+    opacity: 0.78;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-5px) rotate(-3deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambientPhoto {
+    animation: none;
+  }
+
+  .ambientStill {
+    opacity: 0.78;
+    transform: rotate(-5deg);
+  }
+}

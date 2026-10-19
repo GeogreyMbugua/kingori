@@ -71,12 +71,12 @@ export interface VideoAsset {
 
 /**
  * A conversation hosted on YouTube. The site never stores the video file.
- * `videoId` is the id in `youtube.com/embed/{videoId}`, not a full URL.
+ * `videoId` is the id in `youtube.com/watch?v={videoId}`, not a full URL.
  */
 export interface YouTubeAsset {
   readonly kind: "youtube";
   readonly videoId: string;
-  /** Accessible name for the player, usually the episode title. */
+  /** Public episode title. The page links out; it does not embed a player. */
   readonly title: string;
 }
 

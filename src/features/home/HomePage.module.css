@@ -8,7 +8,7 @@
 .hero::before {
   position: absolute;
   inset-block-end: var(--space-7);
-  inset-inline-end: var(--gutter);
+  inset-inline-end: var(--page-inset);
   z-index: 1;
   content: "STORIES";
   color: color-mix(in srgb, var(--color-text) 4%, transparent);
@@ -26,7 +26,8 @@
   position: absolute;
   inset: 0;
   background-image: url("/images/backgrounds/bg-3.webp");
-  background-position: center;
+  /* The lit stage sits on the left. A tall phone crop otherwise lands on the dark wall. */
+  background-position: left center;
   background-size: cover;
   pointer-events: none;
   z-index: 0;
@@ -51,6 +52,10 @@
   display: grid;
   justify-items: start;
   gap: var(--space-5);
+}
+
+.heroText [data-type="giant"] {
+  font-size: var(--font-size-hero);
 }
 
 .heroEyebrow {
@@ -105,7 +110,7 @@
 .scrollCue {
   position: absolute;
   inset-block-end: var(--space-3);
-  inset-inline-start: var(--gutter);
+  inset-inline-start: var(--page-inset);
   z-index: var(--z-raised);
   display: inline-flex;
   align-items: center;
@@ -148,15 +153,19 @@
   }
 }
 
-/* desktop */
+/* desktop: the portrait sits in the column at its own ratio, uncropped */
 @media (min-width: 64em) {
-  .heroMedia,
-  .heroStack {
-    min-block-size: 32rem;
+  .heroBackdrop {
+    background-position: center;
   }
 
   .heroGrid {
     margin-block-end: 0;
+  }
+
+  .heroMedia,
+  .heroStack {
+    min-block-size: 0;
   }
 
   .heroStack {
@@ -164,7 +173,8 @@
   }
 
   .heroPrimary {
-    inline-size: 74%;
+    position: static;
+    inline-size: 100%;
   }
 
   .heroText {
@@ -189,7 +199,7 @@
 }
 
 .threadsLabel {
-  padding-inline: var(--gutter);
+  padding-inline: var(--page-inset);
   margin-block-end: 0;
 }
 

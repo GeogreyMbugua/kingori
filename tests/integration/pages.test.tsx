@@ -115,7 +115,11 @@ describe("page compositions", () => {
     expect(screen.getByRole("link", { name: "Watch on YouTube" }).getAttribute("href")).toBe(
       `https://www.youtube.com/watch?v=${item.asset.videoId}`,
     );
-    expect(screen.getByTitle(item.title).tagName).toBe("IFRAME");
+    expect(screen.queryByRole("iframe")).toBeNull();
+    if (item.cover.kind === "image" && item.cover.alt) {
+      const poster = screen.getByRole("link", { name: item.cover.alt });
+      expect(poster.getAttribute("href")).toBe(`https://www.youtube.com/watch?v=${item.asset.videoId}`);
+    }
   });
 
   it.each(mediaItems.map((item) => [item.slug, item] as const))(

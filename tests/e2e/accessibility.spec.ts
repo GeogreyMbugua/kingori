@@ -33,9 +33,6 @@ test.describe("automated accessibility (axe, WCAG 2.2 AA)", () => {
 
       const results = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"])
-        // YouTube's player document is third-party. Scanning it reports their
-        // markup and can hang the run. The page around the iframe is still scanned.
-        .exclude("iframe")
         .analyze();
 
       const violations = results.violations.map(({ id, nodes }) => ({

@@ -50,6 +50,8 @@ viewports, always with a `rem` term so browser zoom and default font size are re
   `display`, `heading-xl`) intentionally exceed 2× at large viewports. This is a documented
   exception to the WCAG 1.4.4 guidance on fluid type: at 200% zoom the `rem` term still doubles,
   and these roles are reserved for short display words, never running text.
+- `giant` still caps at 90rem. The home name uses `--font-size-hero`, which continues from that
+  cap to 20rem by 120rem so the word stays with the wide column (ADR 0008), then stops.
 - Adding a weight, style or script means re-subsetting from the upstream variable fonts and
   updating this record.
 - No other families may be added without a new ADR.

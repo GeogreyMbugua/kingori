@@ -10,7 +10,7 @@
 }
 
 .content {
-  max-inline-size: calc(var(--width-content) + 2 * var(--gutter));
+  max-inline-size: calc(var(--width-page) + 2 * var(--gutter));
 }
 
 .wide {

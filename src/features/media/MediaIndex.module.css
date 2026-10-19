@@ -18,40 +18,13 @@
   }
 }
 
-/* ─── Feature ─── */
+/* ─── Catalogue: two-up from tablet, three-up on the wide column ─── */
 
-.feature {
-  display: grid;
-  gap: var(--space-5);
-}
-
-.featureImage {
-  margin-inline: calc(var(--gutter) * -1);
-}
-
-.featureText {
-  row-gap: var(--space-4);
-}
-
-.featureText > :first-child {
-  display: grid;
-  gap: var(--space-3);
-}
-
-@media (min-width: 64em) {
-  .featureImage {
-    margin-inline: 0;
-  }
-}
-
-/* ─── The rest ─── */
-
-.rest {
+.catalogue {
   row-gap: var(--space-8);
 }
 
-.visual,
-.textual {
+.entry {
   display: grid;
   align-content: start;
   gap: var(--space-3);
@@ -76,12 +49,5 @@
 @media (min-width: 48em) {
   .visual > :first-child {
     margin-inline: 0;
-  }
-}
-
-/* desktop: text-only entries sit beside the visual ones, anchored to their foot */
-@media (min-width: 64em) {
-  .textual {
-    align-self: end;
   }
 }

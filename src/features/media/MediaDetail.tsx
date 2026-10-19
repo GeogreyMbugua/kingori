@@ -5,7 +5,7 @@ import { Grid, GridItem } from "@/components/layout/Grid";
 import { MediaPlaceholder } from "@/components/media/MediaPlaceholder";
 import { MediaSlot } from "@/components/media/MediaSlot";
 import { Video } from "@/components/media/Video";
-import { YouTubeEmbed } from "@/components/media/YouTubeEmbed";
+import { YouTubeWatch } from "@/components/media/YouTubeWatch";
 import { Prose } from "@/components/typography/Prose";
 import { Text } from "@/components/typography/Text";
 import { Link } from "@/components/ui/Link";
@@ -27,7 +27,7 @@ function Asset({ item }: MediaDetailProps) {
     case "video":
       return <Video video={asset} />;
     case "youtube":
-      return <YouTubeEmbed video={asset} />;
+      return <YouTubeWatch video={asset} cover={item.cover} />;
     case "image":
       return <MediaSlot slot={asset} ratio="16:9" sizes="100vw" preload />;
     case "pending":

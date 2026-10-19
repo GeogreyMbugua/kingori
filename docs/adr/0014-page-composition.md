@@ -11,9 +11,10 @@ a CTA, repeated. The identity has to come from typography, imagery, grid, whites
 
 Recurring rules that make the pages read as one voice:
 
-- **Section openings.** Index pages (Work, Media) and the About and Contact pages open with the
-  section name as `giant` type, answered by a short `body-lg` line in the remaining columns. The
-  homepage opens with the name itself.
+- **Section openings.** Work, Media and Contact open with the section name as `giant` type,
+  answered by a short line in the remaining columns. About keeps the portrait and the biography
+  in one composition: the title is `display`, and the chapters sit beside the portrait rather
+  than in a following section. The homepage opens with the name itself.
 - **Two voices.** Bricolage speaks for the site (titles, navigation, metadata). Newsreader italic
   is reserved for *someone else's words and descriptors*: statements from a work, Kingori's
   first-person statement, categories and formats ("Photography", "Essay"). It is not decoration.
@@ -25,7 +26,8 @@ Recurring rules that make the pages read as one voice:
 - **Composition follows content shape.** A project with a statement leads with type and keeps its
   image small. Image-led projects alternate sides in the index. Figure sequences pair upright crops
   and run landscape crops wide (`FigureSequence`). Media formats that are watched show imagery, and
-  formats that are read are set as type.
+  formats that are read are set as type. The watch list tiles those episodes in the page grid:
+  one column on mobile, two from tablet, three from wide.
 - **Lists are typographic.** Selected and related work use `IndexList`, a numbered list of titles
   where the whole row is the target. No cards, badges or pills.
 - **One next step.** Pages close with `Invitation`, a display-size line that is itself the link to

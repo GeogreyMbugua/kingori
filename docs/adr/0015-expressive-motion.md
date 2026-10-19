@@ -49,5 +49,7 @@ Rules:
 - `PageTransition` falls back to unwrapped content where `React.ViewTransition` is absent (plain
   React in unit tests).
 - The axe suite runs with `reducedMotion: "reduce"`, so it scans final states.
-- Not adopted, pending a need: the reference site's peel stickers, hero carousel and image sprite
-  loops. Each should reuse these tokens and land here once it repeats.
+- The About opening lays a pointer trail of the supplied photographs behind the type. The
+  trail ignores input. Touch uses a shallow ambient photograph above that opening, changing
+  every five seconds while the opening is on screen. Reduced motion shows one still frame.
+- Not adopted: the reference site's peel stickers, hero carousel and image sprite loops.

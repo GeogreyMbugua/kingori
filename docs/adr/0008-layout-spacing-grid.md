@@ -13,8 +13,10 @@ consistent in rhythm and alignment.
   96px) for component spacing, plus three fluid section rhythms (`--space-section-sm`,
   `--space-section`, `--space-section-lg`). `--space-flow` (1em) spaces running text.
 - **Containers.** `Container` caps content at `reading` (42rem), `content` (80rem, default) or
-  `wide` (104rem), plus a fluid `--gutter` on each side. Text measure is capped at 66ch by the
-  reading roles themselves.
+  `wide` (104rem), plus a fluid `--gutter` on each side. From 90em the default column uses the
+  wide measure (`--width-page`) and then stops growing, so a 14-inch laptop and a 2560px monitor
+  do not share one cramped column or an endlessly stretched one. Text measure is capped at 66ch
+  by the reading roles themselves. Full-bleed decorations align to that column with `--page-inset`.
 - **Grid.** 4 columns on mobile, 8 from 48em, 12 from 64em (`--grid-columns`, `--grid-gap`).
   `Grid`/`GridItem` express per-tier spans and start columns as custom properties
   (`--span-desktop: 7`), typed per tier so impossible spans fail to compile. Spans inherit upward

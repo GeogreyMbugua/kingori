@@ -17,8 +17,8 @@ import { MEDIA_FORMAT_LABELS, publishedMedia } from "@/content/media";
 import { buildSizes } from "@/lib/media";
 import styles from "./HomePage.module.css";
 
-const heroMediaSizes = buildSizes({ base: "100vw", tablet: "50vw", desktop: "40vw", wide: "28rem" });
-const mediaSizes = buildSizes({ base: "100vw", desktop: "75vw", wide: "60rem" });
+const heroMediaSizes = buildSizes({ base: "100vw", tablet: "50vw", desktop: "40vw", wide: "51rem" });
+const mediaSizes = buildSizes({ base: "100vw", desktop: "75vw", wide: "70rem" });
 
 export function HomePage() {
   const [featured, ...moreMedia] = publishedMedia().filter(
