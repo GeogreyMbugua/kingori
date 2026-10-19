@@ -1,11 +1,9 @@
 import { expect, test } from "@playwright/test";
 
 const SECTIONS = [
-  ["Work", "/work"],
-  ["Shows", "/shows"],
-  ["Media", "/media"],
+  ["Watch list", "/media"],
   ["About", "/about"],
-  ["Contact", "/contact"],
+  ["Book", "/contact"],
 ] as const;
 
 test.describe("site foundation", () => {
@@ -78,6 +76,23 @@ test.describe("site foundation", () => {
     await page.keyboard.press("Escape");
     await expect(menu).toBeHidden();
     await expect(button).toBeFocused();
+  });
+
+  test("an episode offers a keyboard-reachable YouTube watch link", async ({ page }) => {
+    await page.goto("/media/the-money-game");
+
+    const watch = page.getByRole("link", { name: "Watch on YouTube" });
+    await expect(watch).toHaveAttribute(
+      "href",
+      "https://www.youtube.com/watch?v=MkC40xneDgc",
+    );
+    const player = page.getByTitle("Here's Where Couples Lose The Money Game");
+    await expect(player).toBeVisible();
+
+    await watch.focus();
+    await expect(watch).toBeFocused();
+    await player.focus();
+    await expect(player).toBeFocused();
   });
 
   test("route pages declare a canonical URL", async ({ page }) => {

@@ -1,6 +1,7 @@
 import type { Route } from "next";
 import NextLink from "next/link";
 import type { AnchorHTMLAttributes, ReactNode } from "react";
+import { buttonClassName } from "@/components/ui/Button";
 import { cx } from "@/lib/classnames";
 import styles from "./Link.module.css";
 
@@ -10,12 +11,15 @@ export type ExternalHref =
   | `mailto:${string}`
   | `tel:${string}`;
 
-export type LinkVariant = "inline" | "cta" | "nav";
+export type LinkVariant = "inline" | "cta" | "nav" | "primary" | "secondary";
 
 interface LinkProps<T extends string>
   extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "style"> {
   readonly href: Route<T> | ExternalHref;
-  /** inline: links within text · cta: standalone call to action · nav: navigation lists */
+  /**
+   * inline: links within text · cta: standalone call to action · nav: navigation lists ·
+   * primary/secondary: Button styling, for the one or two main next steps of a view
+   */
   readonly variant?: LinkVariant;
   readonly children: ReactNode;
 }
@@ -37,7 +41,10 @@ export function Link<T extends string>({
   children,
   ...rest
 }: LinkProps<T>) {
-  const classes = cx(styles[variant], className);
+  const classes =
+    variant === "primary" || variant === "secondary"
+      ? buttonClassName(variant, className)
+      : cx(styles[variant], className);
   const content =
     variant === "cta" ? (
       <>

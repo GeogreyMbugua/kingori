@@ -69,7 +69,18 @@ export interface VideoAsset {
   readonly description: string;
 }
 
-export type MediaAsset = ImageAsset | VideoAsset;
+/**
+ * A conversation hosted on YouTube. The site never stores the video file.
+ * `videoId` is the id in `youtube.com/embed/{videoId}`, not a full URL.
+ */
+export interface YouTubeAsset {
+  readonly kind: "youtube";
+  readonly videoId: string;
+  /** Accessible name for the player, usually the episode title. */
+  readonly title: string;
+}
+
+export type MediaAsset = ImageAsset | VideoAsset | YouTubeAsset;
 
 /**
  * A slot whose real asset has not been supplied yet. Renders as a labelled

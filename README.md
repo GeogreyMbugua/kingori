@@ -179,7 +179,7 @@ Swapping in real content never touches pages or components. Edit the content mod
 
 | Content            | File                       | What to change                                                |
 | ------------------ | -------------------------- | ------------------------------------------------------------- |
-| Homepage copy      | `src/content/home.ts`      | `intro`, `statement`, `showsHeading`, `portrait`              |
+| Homepage copy      | `src/content/home.ts`      | `intro`, `statement`, `featuredHeading`, `archiveHeading`, `feature`, `detail` |
 | Shows / tour dates | `src/content/shows.ts`     | Replace the `shows` array; set `ticketUrl` when on sale       |
 | Projects           | `src/content/work.ts`      | One entry per project; optional fields change the layout      |
 | Media              | `src/content/media.ts`     | Videos need an `asset`, essays a `body`, galleries `figures`  |
@@ -189,9 +189,9 @@ To replace an image, drop the file in `public/images/...` and change the pending
 
 ```ts
 // before
-portrait: { kind: "pending", media: "image", description: "Portrait of Kingori" },
+feature: { kind: "pending", media: "image", description: "Hero feature, portrait" },
 // after
-portrait: {
+feature: {
   kind: "image",
   src: "/images/people/kingori-portrait.webp",
   width: 2400,
@@ -225,39 +225,39 @@ public/
 - **Loading.** Images lazy-load by default. Only the above-the-fold LCP image sets `preload`.
 - **Formats.** next/image serves AVIF then WebP. Supply high-quality source files (≥ 2× the
   largest rendered width). Transparent cutouts must be PNG or WebP with alpha.
-- **Video.** `VideoAsset` requires a poster, a text description and ordered sources (WebM/MP4).
-  Captions (`.vtt`) are required for meaningful audio. Self-hosted video goes in `public/video/`.
+- **Video.** Conversations are YouTube embeds (`YouTubeAsset`): the file stays on YouTube.
+  A self-hosted `VideoAsset` still requires a poster, a text description and ordered sources
+  (WebM/MP4), with captions (`.vtt`) for meaningful audio. Self-hosted files go in `public/video/`.
 - **Fonts.** Loaded with `next/font/local` from `src/assets/fonts/` (`src/styles/fonts.ts`), not
   `public/fonts/`. They are self-hosted with metric-adjusted fallbacks and no layout shift.
 
 ## Colour system
 
-Dark-first brand palette (full rationale and contrast table in
+Dark-first brand palette taken from the client's colour list (rationale in
+[ADR 0018](docs/adr/0018-client-palette-and-colour-blocking.md); contract structure in
 [ADR 0006](docs/adr/0006-brand-colour-palette.md)).
 
-| Role                  | Brand colour   | HEX       | Semantic token               |
-| --------------------- | -------------- | --------- | ---------------------------- |
-| Primary background    | Ink (from Deep Navy)      | `#060614` | `--color-background`  |
-| Secondary dark surface| Ink surface (from Midnight Navy) | `#0C0C20` | `--color-surface` |
-| Raised surface        | Ink raised (from Muted Purple)   | `#1E162E` | `--color-surface-raised` |
-| Core navies           | Deep Navy, Midnight Navy | `#000030`, `#101040` | Brand primitives; ink tones derive from them (ADR 0017) |
-| Supporting graphic    | Muted Purple   | `#302050` | `--color-border-subtle`      |
-| Structural accent     | Blue           | `#003090` | `--color-surface-structural`, `--color-border` |
-| Editorial accent      | Hot Pink       | `#C03070` | `--color-accent` (+ `-hover`, `-active`, `-subtle`, `-contrast`, `-text`) |
-| Energy / emphasis     | Coral Red      | `#E05050` | `--color-emphasis`           |
-| Warm accent           | Orange         | `#F07040` | `--color-warm`, `--color-focus-ring` |
-| Primary light text    | Soft White     | `#F0F0F0` | `--color-text`               |
-| Secondary light text  | Lavender White | `#E8E8F0` | `--color-text-secondary`     |
+| Role                  | Brand colour     | HEX       | Semantic token                                  |
+| --------------------- | ---------------- | --------- | ----------------------------------------------- |
+| Primary background    | Near-Black       | `#15191A` | `--color-background`                            |
+| Dark surfaces         | Near-Black + sky / turquoise | `#1A2329`, `#122F2F` | `--color-surface`, `--color-surface-raised` |
+| Primary text          | Clean White      | `#FFFFFF` | `--color-text`, `--color-focus-ring`            |
+| Lead accent           | Vibrant Cyan     | `#00D8F4` | `--color-accent`, `--color-accent-text`, the `accent` surface |
+| Accent hover          | Bright Turquoise | `#00B3B3` | `--color-accent-hover`                          |
+| Accent pressed        | Tweed Green      | `#47917C` | `--color-accent-active`; success tones derive from it |
+| Emphasis / info       | Medium Sky Blue  | `#5096D2` | `--color-emphasis`, `--color-info`, `--color-border-strong` |
+| Warm band             | Rich Skin Tone   | `#6B4B3D` | `--color-surface-structural`; `--color-warm` derives from it |
+
+Amber and red are functional status hues outside the brand, used only for warnings and errors.
 
 Rules:
 
 - Components use `--color-*` tokens only, never `--brand-*` or HEX.
-- `--color-accent` (hot pink) is for display type, graphics and indicators. Use
-  `--color-accent-text` for pink body text or links.
-- Wrap light editorial sections in `data-surface="inverse"`. All semantic tokens remap
-  automatically. Blue structural blocks inside them need `data-surface="default"`.
-- No gradients. Colour is composed as flat fields: navy grounds, one dominant accent per
-  composition, and warm accents used sparingly for emphasis.
+- Three surfaces remap every semantic token: the dark default, `data-surface="inverse"` (white)
+  and `data-surface="accent"` (cyan, one spotlight moment per page). Skin-tone structural blocks
+  inside a light surface need `data-surface="default"`.
+- Colour is composed as flat fields that change section by section, so each band reads as a new
+  step. No gradients.
 - Every contract is verified by `tests/unit/styles/contrast.test.ts`.
 
 ## Design system
@@ -267,7 +267,7 @@ everything at `/design-system` (dev, or a production build with `ENABLE_DESIGN_S
 
 | Area        | What exists                                                                  | Decision |
 | ----------- | ---------------------------------------------------------------------------- | -------- |
-| Colour      | Brand primitives, semantic tokens, accent family, status, inverse surface     | ADR 0006 |
+| Colour      | Brand primitives, semantic tokens, accent family, status, inverse + accent surfaces | ADR 0006, 0018 |
 | Typography  | Bricolage Grotesque + Newsreader; 13 `data-type` roles; fluid `clamp()` scale | ADR 0007 |
 | Layout      | Spacing scale, section rhythm, containers, 4/8/12 grid (`Grid`, `GridItem`)    | ADR 0008 |
 | Motion      | 3 durations, 3 easings, CSS-only `Reveal`, global reduced-motion override     | ADR 0009 |
@@ -329,7 +329,7 @@ queries. Each tier gets its own composition rather than a scaled-down desktop la
 - Pages use `createPageMetadata({ title, description, path })`, which sets an absolute canonical URL
   and re-applies the shared Open Graph fields, because Next.js merges metadata shallowly.
 - `robots.txt` disallows everything unless `SITE_ALLOW_INDEXING=true`.
-- `sitemap.xml` is generated from primary navigation plus all content slugs.
+- `sitemap.xml` is generated from primary navigation plus final content slugs. Placeholder media, projects and shows are omitted.
 - SEO copy is placeholder (`config/seo.ts`).
 
 ## Architecture decisions

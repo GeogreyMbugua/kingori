@@ -3,32 +3,25 @@ import type { AboutContent } from "@/types/content";
 export const aboutContent: AboutContent = {
   status: "placeholder",
   title: "About",
-  description: "About Kingori.",
-  statement:
-    "A first-person statement of identity: one or two sentences that sound like Kingori and no one else.",
+  description: "About Dr. King'ori.",
+  statement: "Conversations that go beyond the obvious.",
   portrait: { kind: "pending", media: "image", description: "Portrait, environmental" },
   detail: { kind: "pending", media: "image", description: "Detail: hands, tools or workspace" },
   chapters: [
     {
-      heading: "Perspective",
+      heading: "Show",
       body: [
-        "How Kingori sees the work: the questions that keep returning, and the point of view that connects different projects.",
+        "Dr. King'ori (Felix Omondi) hosts long-form conversations on financial literacy, business strategy and the way money, power and people actually move.",
+        "After a decade at Nation Media Group with The Wicked Edition, the work continues independently as Grin Content, on YouTube.",
       ],
     },
     {
-      heading: "Approach",
+      heading: "Archive",
       body: [
-        "How the work gets made: process, collaboration and the standards held along the way.",
-        "A second paragraph can describe a typical way of working with others, in plain terms.",
-      ],
-    },
-    {
-      heading: "Experience",
-      body: [
-        "A short narrative of the path so far. Real names, places and dates are added only when supplied.",
+        "This site is the home of those conversations: a place to watch, to read what they leave behind, and to find a discussion by the question it opens.",
       ],
     },
   ],
-  capabilitiesHeading: "What I do",
-  capabilities: ["Capability one", "Capability two", "Capability three", "Capability four"],
+  capabilitiesHeading: "The platform",
+  capabilities: ["The show", "YouTube", "Writing", "Bookings"],
 };

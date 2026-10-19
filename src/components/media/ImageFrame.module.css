@@ -8,6 +8,13 @@
   background-color: var(--color-surface);
 }
 
+.fill {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background-color: var(--color-surface);
+}
+
 .cutout {
   background-color: transparent;
 }

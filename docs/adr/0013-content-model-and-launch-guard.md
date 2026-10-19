@@ -43,9 +43,11 @@ contains a pending asset. `assertLaunchReady()` runs when `robots.txt` is genera
 
 ## Consequences
 
-- Placeholder routes exist and appear in the sitemap. They stay unindexed because indexing cannot
+- Placeholder routes still render for review. Placeholder media, fictional projects and
+  fictional shows are omitted from the sitemap. They stay unindexed because indexing cannot
   be enabled until they are replaced.
 - Unit tests enforce slug uniqueness, resolvable relations and format requirements (essays need a
-  body, films an asset, galleries figures).
+  body, video an asset, galleries figures). Video in the catalogue is a YouTube embed
+  ([ADR 0019](0019-youtube-conversations.md)), not a file hosted on this site.
 - There is no audio player primitive yet. Pending audio renders as a placeholder, and a real audio
   asset will need a small `Audio` primitive and a `MediaAsset` extension.

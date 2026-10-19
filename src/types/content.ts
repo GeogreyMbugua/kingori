@@ -26,15 +26,18 @@ export interface CollectionPageContent extends PageContent {
 }
 
 export interface HomeContent extends PageContent {
-  /** Opening statement beside the wordmark. */
+  /** Opening statement under the wordmark. */
   readonly intro: string;
-  readonly portrait: ImageSlot;
+  /** Main media in the split opening (taller frame). */
+  readonly feature: ImageSlot;
+  /** Supporting photograph beside the remaining entries in Selected work. */
+  readonly detail: ImageSlot;
   /** Large perspective statement; `accent` is set in the serif italic. */
   readonly statement: { readonly lead: string; readonly accent: string; readonly tail: string };
-  readonly selectedWorkHeading: string;
-  readonly mediaHeading: string;
-  /** Marquee heading over upcoming dates, e.g. "Where's Kingori?". */
-  readonly showsHeading: string;
+  readonly featuredHeading: string;
+  readonly archiveHeading: string;
+  readonly archiveIntro: string;
+  readonly behindHeading: string;
 }
 
 export interface AboutChapter {
@@ -112,7 +115,10 @@ export interface MediaItem {
   readonly summary: string;
   readonly format: MediaFormat;
   readonly publishedAt: IsoDate;
-  /** Running time (video/audio) or reading time (article), in minutes. */
+  /**
+   * Running time (video/audio) or reading time (article), in whole minutes.
+   * Video values are completed minutes: floor(lengthSeconds / 60), not rounded.
+   */
   readonly durationMinutes?: number;
   /** Where the piece appeared or how it came about. */
   readonly context?: string;

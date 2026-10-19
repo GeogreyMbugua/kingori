@@ -28,7 +28,8 @@ ratios per composition, so crops must keep the subject in frame without per-imag
   are pending. It is never shipped as final design.
 - **`Video`**: `player` mode uses native controls, `preload="none"`, an optimised poster and
   captions for any meaningful audio. `ambient` mode is muted, looped, has a pause control, and never
-  autoplays under reduced motion.
+  autoplays under reduced motion. Catalogue conversations are not hosted here; they play from
+  YouTube ([ADR 0019](0019-youtube-conversations.md)).
 
 ## Consequences
 

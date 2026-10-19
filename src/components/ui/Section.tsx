@@ -14,9 +14,10 @@ interface SectionProps {
   readonly spacing?: "none" | "sm" | "md" | "lg";
   /**
    * Omit to inherit. "default" restores the dark surface inside an inverse
-   * section; "raised" is the secondary surface tone.
+   * section; "raised" is the secondary surface tone; "accent" is the cyan
+   * spotlight ground, at most once per page.
    */
-  readonly surface?: "default" | "raised" | "inverse";
+  readonly surface?: "default" | "raised" | "inverse" | "accent";
   readonly align?: "start" | "center";
   /** Id of the section's heading: gives <section> an accessible name. */
   readonly labelledBy?: string;
@@ -39,7 +40,7 @@ export function Section({
   return (
     <Tag
       aria-labelledby={labelledBy}
-      data-surface={surface === "default" || surface === "inverse" ? surface : undefined}
+      data-surface={surface === "raised" ? undefined : surface}
       className={cx(
         styles.section,
         styles[`spacing-${spacing}`],

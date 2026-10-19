@@ -34,6 +34,19 @@ describe("content integrity", () => {
     }
   });
 
+  it("keeps verified YouTube facts and does not claim a viewing rank", () => {
+    const couples = getMediaItemBySlug("the-money-game");
+    expect(couples?.title).toBe("Here's Where Couples Lose The Money Game");
+    expect(couples?.credits?.map((credit) => credit.name)).toEqual(["Mbira Rimi"]);
+    expect(couples?.slug).toBe("the-money-game");
+    expect(getMediaItemBySlug("what-people-with-money-never-tell-you")?.durationMinutes).toBe(88);
+
+    for (const item of mediaItems) {
+      expect(item.context ?? "").not.toMatch(/most watched/i);
+      expect(item.summary).not.toMatch(/^With .+\.$/);
+    }
+  });
+
   it("gives articles a body and films or galleries something to show", () => {
     for (const item of mediaItems) {
       if (item.format === "article") expect(item.body, item.slug).toBeDefined();

@@ -27,7 +27,13 @@ export const projects: readonly Project[] = [
     category: "Photography",
     year: 2026,
     role: ["Concept", "Photography"],
-    cover: { kind: "pending", media: "image", description: "Lead photograph" },
+    cover: {
+      kind: "image",
+      src: "/images/people/02.webp",
+      width: 1440,
+      height: 960,
+      alt: "Kingori in a maroon suit and bow tie, holding a microphone and papers while greeting seated guests",
+    },
     coverRatio: "3:2",
     overview: [
       "The overview opens the project in a single, confident paragraph. It sets the scene, names the subject and tells the reader why the work exists, in plain language and without superlatives.",

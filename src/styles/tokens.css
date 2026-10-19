@@ -3,52 +3,58 @@
  *
  * Tiers:
  *   --brand-*   raw palette. Only this file references them.
- *   --color-*   semantic colour, remapped per surface (default dark / inverse light).
+ *   --color-*   semantic colour, remapped per surface (default dark / inverse light / accent cyan).
  *   everything else: type, space, layout, borders, focus, motion.
  *
  * Components use semantic tokens only. Colour contracts are verified by
- * tests/unit/styles/contrast.test.ts. Rationale: docs/adr/0006–0008.
+ * tests/unit/styles/contrast.test.ts. Rationale: docs/adr/0006–0008, 0018.
  */
 @layer tokens {
   :root {
-    /* ─── Brand core palette ─── */
-    --brand-deep-navy: #000030;
-    --brand-midnight-navy: #101040;
-    --brand-muted-purple: #302050;
-    --brand-blue: #003090;
-    --brand-hot-pink: #c03070;
-    --brand-coral-red: #e05050;
-    --brand-orange: #f07040;
-    --brand-soft-white: #f0f0f0;
-    --brand-lavender-white: #e8e8f0;
-
-    /*
-     * ─── Ink: near-black grounds with a navy undertone (ADR 0017) ───
-     * The core navies are pure blue-channel colours that read as saturated
-     * blue on vivid and OLED screens. Ink tones are each core colour mixed
-     * with black plus 2.5% soft white, which neutralises the hue.
-     */
-    --brand-ink: #060614; /* deep navy 30% + black: page background */
-    --brand-ink-surface: #0c0c20; /* midnight navy 40% + black: panels, menu */
-    --brand-ink-raised: #1e162e; /* muted purple 50% + black: raised sections */
+    /* ─── Brand core palette (ADR 0018) ─── */
+    --brand-near-black: #15191a;
+    --brand-white: #ffffff;
+    --brand-cyan: #00d8f4;
+    --brand-turquoise: #00b3b3;
+    --brand-sky-blue: #5096d2;
+    --brand-tweed-green: #47917c;
+    --brand-skin: #6b4b3d;
 
     /* ─── Derived tones: mixes of core colours that unlock accessible uses ─── */
-    --brand-hot-pink-light: #d37da3; /* pink + 40% soft white: pink text on dark */
-    --brand-hot-pink-deep: #a32966; /* pink + 15% navy: hover; pink text on light */
-    --brand-hot-pink-darker: #86225d; /* pink + 30% navy: pressed */
-    --brand-hot-pink-wash-dark: #23093c; /* navy + 18% pink: subtle accent surface */
-    --brand-hot-pink-wash-light: #ead9e1; /* soft white + 12% pink */
-    --brand-blue-light: #4667ad; /* blue + 30% lavender: 3:1 control borders */
-    --brand-blue-pale: #8095c5; /* blue + 55% lavender: info text on dark */
-    --brand-lavender-muted: #9797ad; /* lavender + 35% navy: muted text on dark */
-    --brand-lavender-mist: #d1d1d9; /* soft white + 35% lavender-muted: hairline on light */
-    --brand-navy-muted: #545473; /* navy + 35% soft white: muted text on light */
-    --brand-orange-deep: #843e39; /* orange + 45% navy: warning on light */
-    --brand-coral-deep: #9d3846; /* coral + 30% navy: error on light */
+    --brand-ink-surface: #1a2329; /* near-black + 8% sky blue: panels, menu */
+    --brand-ink-raised: #122f2f; /* near-black + 14% turquoise: raised sections */
+    --brand-ink-rule: #223542; /* near-black + 22% sky blue: hairlines on dark */
+    --brand-cyan-wash-dark: #123439; /* near-black + 14% cyan: subtle accent surface */
+    --brand-cyan-light: #40e2f7; /* cyan + 25% white: surfaces inside the accent ground */
+    --brand-cyan-wash-light: #66e8f8; /* cyan + 40% white */
+    --brand-cyan-rule: #04b2c8; /* cyan + 20% near-black: hairline on cyan */
+    --brand-cyan-ink: #104951; /* near-black + 25% cyan: muted text on cyan */
+    --brand-cyan-ink-deep: #132c30; /* near-black + 10% cyan: secondary text on cyan */
+    --brand-turquoise-deep: #096e6e; /* turquoise + 45% near-black: accent on light */
+    --brand-turquoise-deeper: #0d5757; /* turquoise + 60% near-black: hover on light */
+    --brand-turquoise-deepest: #0f4445; /* turquoise + 72% near-black: pressed on light */
+    --brand-turquoise-wash-light: #e0f6f6; /* white + 12% turquoise */
+    --brand-sky-deep: #386488; /* sky blue + 40% near-black: emphasis on light */
+    --brand-sky-ink: #2d4b64; /* sky blue + 60% near-black: info on cyan */
+    --brand-sky-pale: #f1f7fb; /* white + 8% sky blue: light surface */
+    --brand-sky-mist: #d9e8f5; /* white + 22% sky blue: hairline on light */
+    --brand-tweed-light: #7eb2a3; /* tweed + 30% white: success on dark */
+    --brand-tweed-deep: #36675a; /* tweed + 35% near-black: success on light */
+    --brand-tweed-dark: #2c4f46; /* tweed + 55% near-black: hover on cyan */
+    --brand-skin-light: #bcaea8; /* skin + 55% white: warm text on dark */
+    --brand-skin-ink: #4d3a31; /* skin + 35% near-black: warm accents on cyan */
+    --brand-grey-light: #e8e8e8; /* white + 10% near-black: secondary text on dark */
+    --brand-grey: #adafaf; /* white + 35% near-black: muted text on dark */
+    --brand-grey-dark: #57595a; /* near-black + 28% white: muted text on light */
+    --brand-grey-darker: #2c3031; /* near-black + 10% white: secondary text on light */
 
-    /* Functional green: the one non-brand hue, reserved for success states. */
-    --brand-green: #4cc38a;
-    --brand-green-deep: #225859; /* green + 55% navy: success on light */
+    /* Functional status hues: outside the brand, reserved for warnings and errors. */
+    --brand-amber: #f0a040;
+    --brand-amber-deep: #8a4b1a;
+    --brand-amber-ink: #7a3a10;
+    --brand-red: #ff6b5e;
+    --brand-red-deep: #a8322a;
+    --brand-red-ink: #6e2a24;
   }
 
   /*
@@ -66,84 +72,131 @@
     color-scheme: dark;
 
     /* Base */
-    --color-background: var(--brand-ink);
+    --color-background: var(--brand-near-black);
     --color-surface: var(--brand-ink-surface);
     --color-surface-raised: var(--brand-ink-raised);
-    --color-surface-structural: var(--brand-blue);
+    /* Warm skin-tone band: white text is 7.8:1 on it. */
+    --color-surface-structural: var(--brand-skin);
 
-    --color-text: var(--brand-soft-white);
-    --color-text-secondary: var(--brand-lavender-white);
-    --color-text-muted: var(--brand-lavender-muted);
+    --color-text: var(--brand-white);
+    --color-text-secondary: var(--brand-grey-light);
+    --color-text-muted: var(--brand-grey);
 
-    --color-border-subtle: var(--brand-muted-purple);
-    --color-border: var(--brand-blue);
-    --color-border-strong: var(--brand-blue-light);
+    --color-border-subtle: var(--brand-ink-rule);
+    --color-border: var(--brand-sky-deep);
+    --color-border-strong: var(--brand-sky-blue);
 
-    --color-inverse-background: var(--brand-soft-white);
-    --color-inverse-text: var(--brand-deep-navy);
+    --color-inverse-background: var(--brand-white);
+    --color-inverse-text: var(--brand-near-black);
 
-    /*
-     * Accent. Hot pink is 3.7:1 on navy: fills, display type and indicators.
-     * Small pink text uses --color-accent-text.
-     */
-    --color-accent: var(--brand-hot-pink);
-    --color-accent-hover: var(--brand-hot-pink-deep);
-    --color-accent-active: var(--brand-hot-pink-darker);
-    --color-accent-subtle: var(--brand-hot-pink-wash-dark);
-    --color-accent-contrast: var(--brand-soft-white);
-    --color-accent-text: var(--brand-hot-pink-light);
+    /* Accent. Cyan is 10:1 on near-black, so it works as fill, display type and small text. */
+    --color-accent: var(--brand-cyan);
+    --color-accent-hover: var(--brand-turquoise);
+    --color-accent-active: var(--brand-tweed-green);
+    --color-accent-subtle: var(--brand-cyan-wash-dark);
+    --color-accent-contrast: var(--brand-near-black);
+    --color-accent-text: var(--brand-cyan);
 
-    /* Editorial secondary accents — use sparingly. */
-    --color-emphasis: var(--brand-coral-red);
-    --color-warm: var(--brand-orange);
+    /* Editorial secondary accents. */
+    --color-emphasis: var(--brand-sky-blue);
+    --color-warm: var(--brand-skin-light);
 
     /* Status. Always paired with text or an icon, never colour alone. */
-    --color-success: var(--brand-green);
-    --color-warning: var(--brand-orange);
-    --color-error: var(--brand-coral-red);
-    --color-info: var(--brand-blue-pale);
+    --color-success: var(--brand-tweed-light);
+    --color-warning: var(--brand-amber);
+    --color-error: var(--brand-red);
+    --color-info: var(--brand-sky-blue);
 
-    --color-focus-ring: var(--brand-orange);
-    --color-selection-background: var(--brand-hot-pink);
-    --color-selection-text: var(--brand-soft-white);
+    /* White stays distinct from every cyan fill and indicator. */
+    --color-focus-ring: var(--brand-white);
+    --color-selection-background: var(--brand-cyan);
+    --color-selection-text: var(--brand-near-black);
   }
 
   /*
    * Inverse (light) surface for editorial contrast sections. Same contracts.
-   * --color-surface-structural (blue) stays dark: an element using it inside
-   * an inverse section must also set data-surface="default".
+   * --color-surface-structural (skin tone) stays dark: an element using it
+   * inside an inverse section must also set data-surface="default".
    */
   [data-surface="inverse"] {
     color-scheme: light;
 
-    --color-background: var(--brand-soft-white);
-    --color-surface: var(--brand-lavender-white);
-    --color-surface-raised: var(--brand-lavender-white);
+    --color-background: var(--brand-white);
+    --color-surface: var(--brand-sky-pale);
+    --color-surface-raised: var(--brand-sky-pale);
 
-    --color-text: var(--brand-deep-navy);
-    --color-text-secondary: var(--brand-midnight-navy);
-    --color-text-muted: var(--brand-navy-muted);
+    --color-text: var(--brand-near-black);
+    --color-text-secondary: var(--brand-grey-darker);
+    --color-text-muted: var(--brand-grey-dark);
 
-    --color-border-subtle: var(--brand-lavender-mist);
-    --color-border: var(--brand-lavender-muted);
-    --color-border-strong: var(--brand-navy-muted);
+    --color-border-subtle: var(--brand-sky-mist);
+    --color-border: var(--brand-sky-blue);
+    --color-border-strong: var(--brand-sky-deep);
 
-    --color-inverse-background: var(--brand-deep-navy);
-    --color-inverse-text: var(--brand-soft-white);
+    --color-inverse-background: var(--brand-near-black);
+    --color-inverse-text: var(--brand-white);
 
-    --color-accent-subtle: var(--brand-hot-pink-wash-light);
-    --color-accent-text: var(--brand-hot-pink-deep);
+    /* Cyan is 1.7:1 on white; deep turquoise carries the accent on light. */
+    --color-accent: var(--brand-turquoise-deep);
+    --color-accent-hover: var(--brand-turquoise-deeper);
+    --color-accent-active: var(--brand-turquoise-deepest);
+    --color-accent-subtle: var(--brand-turquoise-wash-light);
+    --color-accent-contrast: var(--brand-white);
+    --color-accent-text: var(--brand-turquoise-deep);
 
-    --color-emphasis: var(--brand-blue);
-    /* Orange is 2.6:1 on soft white; coral is the warm accent on light. */
-    --color-warm: var(--brand-coral-red);
+    --color-emphasis: var(--brand-sky-deep);
+    --color-warm: var(--brand-skin);
 
-    --color-success: var(--brand-green-deep);
-    --color-warning: var(--brand-orange-deep);
-    --color-error: var(--brand-coral-deep);
-    --color-info: var(--brand-blue);
+    --color-success: var(--brand-tweed-deep);
+    --color-warning: var(--brand-amber-deep);
+    --color-error: var(--brand-red-deep);
+    --color-info: var(--brand-sky-deep);
 
-    --color-focus-ring: var(--brand-blue);
+    --color-focus-ring: var(--brand-near-black);
+    --color-selection-background: var(--brand-turquoise-deep);
+    --color-selection-text: var(--brand-white);
+  }
+
+  /*
+   * Accent (cyan) ground for a single spotlight moment per page (ADR 0018).
+   * Near-black carries text and fills; skin tone is the warm accent.
+   */
+  [data-surface="accent"] {
+    color-scheme: light;
+
+    --color-background: var(--brand-cyan);
+    --color-surface: var(--brand-cyan-light);
+    --color-surface-raised: var(--brand-cyan-light);
+
+    --color-text: var(--brand-near-black);
+    --color-text-secondary: var(--brand-cyan-ink-deep);
+    --color-text-muted: var(--brand-cyan-ink);
+
+    --color-border-subtle: var(--brand-cyan-rule);
+    --color-border: var(--brand-cyan-ink);
+    --color-border-strong: var(--brand-near-black);
+
+    --color-inverse-background: var(--brand-near-black);
+    --color-inverse-text: var(--brand-white);
+
+    --color-accent: var(--brand-near-black);
+    --color-accent-hover: var(--brand-tweed-dark);
+    --color-accent-active: var(--brand-skin-ink);
+    --color-accent-subtle: var(--brand-cyan-wash-light);
+    --color-accent-contrast: var(--brand-cyan);
+    --color-accent-text: var(--brand-skin-ink);
+
+    --color-emphasis: var(--brand-skin-ink);
+    --color-warm: var(--brand-skin-ink);
+
+    --color-success: var(--brand-tweed-dark);
+    --color-warning: var(--brand-amber-ink);
+    --color-error: var(--brand-red-ink);
+    --color-info: var(--brand-sky-ink);
+
+    --color-focus-ring: var(--brand-near-black);
+    --color-selection-background: var(--brand-near-black);
+    --color-selection-text: var(--brand-cyan);
   }
 
   :root {

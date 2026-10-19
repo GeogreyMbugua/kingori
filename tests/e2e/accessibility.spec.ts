@@ -10,7 +10,11 @@ const ROUTES = [
   "/shows",
   "/media",
   "/media/feature-gallery",
-  "/media/short-film",
+  "/media/making-money-easier",
+  "/media/what-people-with-money-never-tell-you",
+  "/media/money-game-without-a-payslip",
+  "/media/rich-or-wealthy",
+  "/media/the-money-game",
   "/media/long-read",
   "/about",
   "/contact",
@@ -29,6 +33,9 @@ test.describe("automated accessibility (axe, WCAG 2.2 AA)", () => {
 
       const results = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"])
+        // YouTube's player document is third-party. Scanning it reports their
+        // markup and can hang the run. The page around the iframe is still scanned.
+        .exclude("iframe")
         .analyze();
 
       const violations = results.violations.map(({ id, nodes }) => ({
@@ -43,7 +50,16 @@ test.describe("automated accessibility (axe, WCAG 2.2 AA)", () => {
 test.describe("responsive and interaction guarantees", () => {
   test("no horizontal overflow at 320 CSS px (WCAG 1.4.10)", async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 640 });
-    for (const path of ["/", "/work", "/work/process-study", "/shows", "/about", "/media", "/contact"]) {
+    for (const path of [
+      "/",
+      "/work",
+      "/work/process-study",
+      "/shows",
+      "/about",
+      "/media",
+      "/media/the-money-game",
+      "/contact",
+    ]) {
       await page.goto(path);
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -63,7 +79,7 @@ test.describe("responsive and interaction guarantees", () => {
     const links = page
       .getByRole(isMobile ? "dialog" : "navigation", { name: isMobile ? "Menu" : "Primary" })
       .getByRole("link");
-    await expect(links).toHaveCount(5);
+    await expect(links).toHaveCount(3);
 
     for (const link of await links.all()) {
       await expect(link).toBeVisible();

@@ -1,6 +1,7 @@
 # ADR 0017 — Ink grounds: darker, less saturated dark surfaces
 
-**Status:** Accepted · **Date:** 2026-10-12 · **Amends:** ADR 0006 (surface role assignments)
+**Status:** Superseded by [ADR 0018](0018-client-palette-and-colour-blocking.md) ·
+**Date:** 2026-10-12 · **Amends:** ADR 0006 (surface role assignments)
 
 ## Context
 

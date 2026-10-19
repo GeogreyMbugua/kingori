@@ -5,7 +5,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Text } from "@/components/typography/Text";
 import { Link } from "@/components/ui/Link";
 import { Section } from "@/components/ui/Section";
-import { mediaContent, mediaItems } from "@/content/media";
+import { mediaContent, publishedMedia } from "@/content/media";
 import { buildSizes } from "@/lib/media";
 import type { MediaItem } from "@/types/content";
 import styles from "./MediaIndex.module.css";
@@ -28,7 +28,7 @@ function EntryTitle({ item, size }: { item: MediaItem; size: "heading-xl" | "h2"
 }
 
 export function MediaIndex() {
-  const [feature, ...rest] = mediaItems;
+  const [feature, ...rest] = publishedMedia();
 
   return (
     <>

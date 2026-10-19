@@ -3,18 +3,15 @@ import { ContrastSample } from "./ContrastSample";
 import styles from "./DesignSystem.module.css";
 
 const BRAND = [
-  "ink",
+  "near-black",
   "ink-surface",
   "ink-raised",
-  "deep-navy",
-  "midnight-navy",
-  "muted-purple",
-  "blue",
-  "hot-pink",
-  "coral-red",
-  "orange",
-  "soft-white",
-  "lavender-white",
+  "white",
+  "cyan",
+  "turquoise",
+  "sky-blue",
+  "tweed-green",
+  "skin",
 ] as const;
 
 const PAIRS = [
@@ -37,6 +34,13 @@ const INVERSE_PAIRS = [
   ["accent-text", "background"],
   ["emphasis", "background"],
   ["error", "background"],
+] as const;
+
+const ACCENT_PAIRS = [
+  ["text", "background"],
+  ["text-muted", "background"],
+  ["accent-text", "background"],
+  ["accent-contrast", "accent"],
 ] as const;
 
 function ContrastGrid({ pairs }: { readonly pairs: readonly (readonly [string, string])[] }) {
@@ -74,6 +78,10 @@ export function ColorSection() {
       <Section surface="inverse" labelledBy="ds-colour-inverse">
         <h2 id="ds-colour-inverse">Semantic pairs, inverse surface</h2>
         <ContrastGrid pairs={INVERSE_PAIRS} />
+      </Section>
+      <Section surface="accent" labelledBy="ds-colour-accent">
+        <h2 id="ds-colour-accent">Semantic pairs, accent surface</h2>
+        <ContrastGrid pairs={ACCENT_PAIRS} />
       </Section>
     </>
   );

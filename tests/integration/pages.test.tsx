@@ -107,6 +107,17 @@ describe("page compositions", () => {
     },
   );
 
+  it("points a YouTube episode at the public watch URL", () => {
+    const item = mediaItems.find((entry) => entry.asset?.kind === "youtube");
+    if (!item || item.asset?.kind !== "youtube") throw new Error("Expected a YouTube episode");
+
+    render(<MediaDetail item={item} />);
+    expect(screen.getByRole("link", { name: "Watch on YouTube" }).getAttribute("href")).toBe(
+      `https://www.youtube.com/watch?v=${item.asset.videoId}`,
+    );
+    expect(screen.getByTitle(item.title).tagName).toBe("IFRAME");
+  });
+
   it.each(mediaItems.map((item) => [item.slug, item] as const))(
     "media %s keeps one h1 and machine-readable dates",
     (_slug, item) => {

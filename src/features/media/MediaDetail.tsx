@@ -5,6 +5,7 @@ import { Grid, GridItem } from "@/components/layout/Grid";
 import { MediaPlaceholder } from "@/components/media/MediaPlaceholder";
 import { MediaSlot } from "@/components/media/MediaSlot";
 import { Video } from "@/components/media/Video";
+import { YouTubeEmbed } from "@/components/media/YouTubeEmbed";
 import { Prose } from "@/components/typography/Prose";
 import { Text } from "@/components/typography/Text";
 import { Link } from "@/components/ui/Link";
@@ -25,6 +26,8 @@ function Asset({ item }: MediaDetailProps) {
   switch (asset.kind) {
     case "video":
       return <Video video={asset} />;
+    case "youtube":
+      return <YouTubeEmbed video={asset} />;
     case "image":
       return <MediaSlot slot={asset} ratio="16:9" sizes="100vw" preload />;
     case "pending":
@@ -38,12 +41,13 @@ function Asset({ item }: MediaDetailProps) {
 }
 
 /**
- * The format decides the page: films and galleries lead with the work at
- * full width, essays lead with the image and then give the text a reading
+ * The format decides the page: conversations and galleries lead with the work
+ * at full width, essays lead with the image and then give the text a reading
  * column. Metadata stays in one quiet line.
  */
 export function MediaDetail({ item }: MediaDetailProps) {
-  const project = item.relatedProjectSlug ? getProjectBySlug(item.relatedProjectSlug) : undefined;
+  const related = item.relatedProjectSlug ? getProjectBySlug(item.relatedProjectSlug) : undefined;
+  const project = related?.status === "final" ? related : undefined;
 
   return (
     <article aria-labelledby="media-item-title">

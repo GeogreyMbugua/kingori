@@ -36,6 +36,7 @@ const defaultSurface = readBlock('[data-surface="default"]');
 const surfaces = {
   default: defaultSurface,
   inverse: readBlock('[data-surface="inverse"]'),
+  accent: readBlock('[data-surface="accent"]'),
 } as const;
 
 /** Mirrors CSS inheritance: surface scope, then default semantics, then brand primitives. */
@@ -97,11 +98,11 @@ describe.each(Object.entries(surfaces))("%s surface colour contracts", (_name, s
 describe("default surface extras", () => {
   const color = (token: string) => resolve(`color-${token}`, defaultSurface);
 
-  it("supports AAA body text on the structural blue surface", () => {
+  it("supports AAA body text on the structural skin-tone surface", () => {
     expect(contrast(color("text"), color("surface-structural"))).toBeGreaterThanOrEqual(AAA);
   });
 
-  it("keeps orange (warm) at AA on every dark surface, so it can carry text", () => {
+  it("keeps the warm tone at AA on every dark surface, so it can carry text", () => {
     for (const background of ALL_SURFACES) {
       expect(contrast(color("warm"), color(background))).toBeGreaterThanOrEqual(AA);
     }

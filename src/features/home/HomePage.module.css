@@ -1,53 +1,174 @@
-/* ─── Opening ─── */
+/* ─── Opening: split type + full-height portrait ─── */
 
-.opening {
-  padding-block-start: var(--space-6);
+.hero {
+  isolation: isolate;
+  overflow: hidden;
 }
 
-/*
- * Mobile: name, then the portrait full-bleed, then the intro.
- * Tablet: portrait sits right, the intro tucks into the empty columns beside it.
- * Desktop: name across eight columns, portrait rises the full height on the right,
- * intro anchors bottom-left so the eye travels name → portrait → words.
- */
-.portrait {
-  margin-inline: calc(var(--gutter) * -1);
+.hero::before {
+  position: absolute;
+  inset-block-end: var(--space-7);
+  inset-inline-end: var(--gutter);
+  z-index: 1;
+  content: "STORIES";
+  color: color-mix(in srgb, var(--color-text) 4%, transparent);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-giant);
+  font-stretch: var(--stretch-condensed);
+  font-weight: var(--weight-heavy);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+  white-space: nowrap;
+  pointer-events: none;
 }
 
-.intro {
+.heroBackdrop {
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/backgrounds/bg-3.webp");
+  background-position: center;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heroBackdrop::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background-color: color-mix(in srgb, var(--color-background) 48%, transparent);
+}
+
+.heroGrid {
+  position: relative;
+  z-index: var(--z-raised);
+  align-items: center;
+  row-gap: var(--space-8);
+  margin-block-end: calc(var(--space-section-sm) * -1);
+}
+
+.heroText {
   display: grid;
   justify-items: start;
   gap: var(--space-5);
 }
 
-/* tablet */
+.heroEyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.heroEyebrow::before {
+  inline-size: var(--space-5);
+  block-size: var(--border-width-thin);
+  content: "";
+  background-color: var(--color-accent);
+}
+
+.heroText [data-type="body-lg"] {
+  max-inline-size: 36ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.heroMedia {
+  min-block-size: 0;
+}
+
+.heroStack {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 8 / 9;
+}
+
+.heroPrimary {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  inline-size: 90%;
+  z-index: 1;
+  overflow: visible;
+  border: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.heroPortraitReveal {
+  display: block;
+}
+
+.scrollCue {
+  position: absolute;
+  inset-block-end: var(--space-3);
+  inset-inline-start: var(--gutter);
+  z-index: var(--z-raised);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-block-size: var(--size-touch-target);
+  text-decoration: none;
+}
+
+.scrollCue [data-type="meta"] {
+  color: var(--color-text-secondary);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.scrollLine {
+  inline-size: var(--border-width-thin);
+  block-size: var(--space-6);
+  background-color: var(--color-accent);
+  transform-origin: center top;
+}
+
+@media (hover: hover) {
+  .scrollCue:hover [data-type="meta"] {
+    color: var(--color-accent-text);
+  }
+}
+
+/* tablet+: keep the portrait at the full media-column width. */
 @media (min-width: 48em) {
-  .portrait {
-    margin-inline: 0;
-    grid-row: 2;
+  .heroMedia,
+  .heroStack {
+    min-block-size: 26rem;
   }
 
-  .intro {
-    grid-row: 2;
-    grid-column: 1 / span 3;
-    align-self: end;
+  .heroStack {
+    aspect-ratio: 4 / 5;
+  }
+
+  .heroPrimary {
+    inline-size: 100%;
   }
 }
 
 /* desktop */
 @media (min-width: 64em) {
-  .wordmark {
-    grid-row: 1;
-    align-self: start;
+  .heroMedia,
+  .heroStack {
+    min-block-size: 32rem;
   }
 
-  .portrait {
-    grid-row: 1 / span 2;
+  .heroGrid {
+    margin-block-end: 0;
   }
 
-  .intro {
-    grid-row: 2;
-    grid-column: 1 / span 5;
+  .heroStack {
+    aspect-ratio: auto;
+  }
+
+  .heroPrimary {
+    inline-size: 74%;
+  }
+
+  .heroText {
+    padding-block: var(--space-6);
   }
 }
 
@@ -57,10 +178,45 @@
   color: var(--color-text);
 }
 
-/* ─── Shows marquee ─── */
+.statement em {
+  color: var(--color-accent-text);
+}
+
+.threads {
+  display: grid;
+  gap: var(--space-4);
+  padding-block: var(--space-section-sm);
+}
+
+.threadsLabel {
+  padding-inline: var(--gutter);
+  margin-block-end: 0;
+}
+
+.theme {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mediaFeature,
+.featureImage {
+  overflow: hidden;
+}
+
+/* ─── Shows marquee: a warm band between the cool sections ─── */
 
 .shows {
-  padding-block: var(--space-section) 0;
+  padding-block: var(--space-section-sm) 0;
+  background-color: var(--color-surface-structural);
+}
+
+.shows .label {
+  color: var(--color-text);
+}
+
+.shows .more {
+  margin-block: 0;
+  padding-block: var(--space-5) var(--space-section-sm);
 }
 
 /* ─── Selected work ─── */
@@ -72,6 +228,14 @@
 .feature {
   margin-block-end: var(--space-8);
   row-gap: var(--space-5);
+}
+
+.workSupporting {
+  align-items: start;
+}
+
+.workDetail {
+  margin-inline: calc(var(--gutter) * -1);
 }
 
 .featureImage {
@@ -114,7 +278,8 @@
 
 /* tablet */
 @media (min-width: 48em) {
-  .featureImage {
+  .featureImage,
+  .workDetail {
     margin-inline: 0;
   }
 }

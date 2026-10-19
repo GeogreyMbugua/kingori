@@ -1,6 +1,8 @@
 # ADR 0006 — Brand colour palette and semantic colour contracts
 
-**Status:** Accepted, surface roles amended by [ADR 0017](0017-ink-grounds.md) (ink grounds) ·
+**Status:** Accepted. Palette and role assignments superseded by
+[ADR 0018](0018-client-palette-and-colour-blocking.md); the three-tier structure and contracts
+still apply ·
 **Date:** 2026-10-04
 
 ## Context

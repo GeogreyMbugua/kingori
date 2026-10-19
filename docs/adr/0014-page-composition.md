@@ -17,8 +17,9 @@ Recurring rules that make the pages read as one voice:
 - **Two voices.** Bricolage speaks for the site (titles, navigation, metadata). Newsreader italic
   is reserved for *someone else's words and descriptors*: statements from a work, Kingori's
   first-person statement, categories and formats ("Photography", "Essay"). It is not decoration.
-- **One interruption per page at most.** The light `inverse` surface is used for a single moment:
-  the homepage statement, a project statement or the About capabilities.
+- **One interruption per page at most.** A contrasting surface is used for a single moment: the
+  cyan `accent` surface for the homepage statement (ADR 0018), or the light `inverse` surface for
+  a project statement or the About capabilities.
 - **Images bleed from their own edge.** Large images run off the side they sit on (left or right)
   on desktop and edge to edge on mobile. Supporting images stay inside the grid.
 - **Composition follows content shape.** A project with a statement leads with type and keeps its

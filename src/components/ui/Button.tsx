@@ -9,9 +9,12 @@ interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "sty
   readonly variant?: ButtonVariant;
 }
 
+/** Shared with Link, so a navigation that must read as the main action looks like one. */
+export function buttonClassName(variant: ButtonVariant, className?: string): string {
+  return cx(styles.button, styles[variant], className);
+}
+
 /** For actions. Navigation uses Link (variant "cta" for call-to-action links). */
 export function Button({ variant = "primary", type = "button", className, ...rest }: ButtonProps) {
-  return (
-    <button type={type} className={cx(styles.button, styles[variant], className)} {...rest} />
-  );
+  return <button type={type} className={buttonClassName(variant, className)} {...rest} />;
 }

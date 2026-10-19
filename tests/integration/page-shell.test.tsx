@@ -55,13 +55,13 @@ describe("PageShell", () => {
     expect(within(nav).getByRole("link", { name: "About" }).getAttribute("aria-current")).toBe(
       "page",
     );
-    expect(within(nav).getByRole("link", { name: "Work" }).hasAttribute("aria-current")).toBe(
+    expect(within(nav).getByRole("link", { name: "Watch list" }).hasAttribute("aria-current")).toBe(
       false,
     );
   });
 
   it("offers a menu button controlling a modal menu with every destination", () => {
-    navigation.pathname = "/shows";
+    navigation.pathname = "/media";
     const { container } = renderShell();
 
     expect(screen.getByRole("button", { name: "Menu" }).getAttribute("aria-haspopup")).toBe(
@@ -73,17 +73,17 @@ describe("PageShell", () => {
     expect(links.map((link) => link.textContent?.replace(/^\d+/, ""))).toEqual(
       primaryNavigation.map((item) => item.label),
     );
-    expect(links.find((link) => link.getAttribute("href") === "/shows")?.getAttribute("aria-current")).toBe(
+    expect(links.find((link) => link.getAttribute("href") === "/media")?.getAttribute("aria-current")).toBe(
       "page",
     );
   });
 
   it("marks the parent section on nested routes without claiming the exact page", () => {
-    navigation.pathname = "/work/example";
+    navigation.pathname = "/media/the-money-game";
     renderShell();
 
     const nav = screen.getByRole("navigation", { name: "Primary" });
-    expect(within(nav).getByRole("link", { name: "Work" }).getAttribute("aria-current")).toBe(
+    expect(within(nav).getByRole("link", { name: "Watch list" }).getAttribute("aria-current")).toBe(
       "true",
     );
   });
